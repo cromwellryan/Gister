@@ -3,13 +3,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using EchelonTouchInc.Gister.FluentHttp;
+using FluentHttp;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.Win32;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 
 namespace EchelonTouchInc.Gister
@@ -84,7 +82,33 @@ namespace EchelonTouchInc.Gister
             if (view == null) return;
 
             var gistContent = GetGistContent(view);
+
+            CreateGist(gistContent, "file1.cs");
         }
+
+        private void CreateGist(string gistContent, string fileName)
+        {
+            var doc = @"{
+  ""description"": ""what the frick?"",
+  ""public"": true,
+  ""files"": {
+    ""file1.txt"": {
+      ""content"": """ + gistContent + @"""
+    }
+  }
+}";
+
+            var ar = new FluentHttpRequest()
+                            .BaseUrl("https://api.github.com")
+                            .AuthenticateUsing(new HttpBasicAuthenticator("cromwellryan", "w3bm0nk3y"))
+                            .ResourcePath("/gists")
+                            .Method("POST")
+                            .Headers(h => h.Add("User-Agent", "Gister"))
+                            .Headers(h => h.Add("Content-Type", "application/json"))
+                            .Body(x => x.Append(doc))
+                            .Execute();
+
+       }
 
         private static string GetGistContent(IWpfTextView view)
         {
