@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.Win32;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -44,8 +47,6 @@ namespace EchelonTouchInc.Gister
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
         }
 
-
-
         /////////////////////////////////////////////////////////////////////////////
         // Overriden Package Implementation
         #region Package Members
@@ -56,17 +57,17 @@ namespace EchelonTouchInc.Gister
         /// </summary>
         protected override void Initialize()
         {
-            Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
             OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if ( null != mcs )
+            if (null != mcs)
             {
                 // Create the command for the menu item.
                 CommandID menuCommandID = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGist);
-                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID );
-                mcs.AddCommand( menuItem );
+                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
+                mcs.AddCommand(menuItem);
             }
         }
         #endregion
@@ -78,23 +79,56 @@ namespace EchelonTouchInc.Gister
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            // Show a Message Box to prove we were here
-            IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
-            Guid clsid = Guid.Empty;
-            int result;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-                       0,
-                       ref clsid,
-                       "Gister",
-                       string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
-                       string.Empty,
-                       0,
-                       OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-                       OLEMSGICON.OLEMSGICON_INFO,
-                       0,        // false
-                       out result));
+            var view = GetActiveTextView();
+
+            if (view == null) return;
+
+            var gistContent = GetGistContent(view);
         }
 
+        private static string GetGistContent(IWpfTextView view)
+        {
+            if (SelectionIsAvailable(view))
+                return GetSelectedText(view);
+
+            return view.TextSnapshot.GetText();
+        }
+
+        private static string GetSelectedText(IWpfTextView view)
+        {
+            return view.Selection.SelectedSpans[0].GetText();
+        }
+
+        private static bool SelectionIsAvailable(IWpfTextView view)
+        {
+            if (view == null) throw new ArgumentNullException("view");
+
+            return !view.Selection.IsEmpty && view.Selection.SelectedSpans.Count > 0;
+        }
+
+        private IWpfTextView GetActiveTextView()
+        {
+            IWpfTextView view = null;
+            IVsTextView vTextView = null;
+
+            var txtMgr =
+                (IVsTextManager)GetService(typeof(SVsTextManager));
+            const int mustHaveFocus = 1;
+            txtMgr.GetActiveView(mustHaveFocus, null, out vTextView);
+
+            var userData = vTextView as IVsUserData;
+            if (null != userData)
+            {
+                object holder;
+
+                var guidViewHost = DefGuidList.guidIWpfTextViewHost;
+                userData.GetData(ref guidViewHost, out holder);
+
+                var viewHost = (IWpfTextViewHost)holder;
+                view = viewHost.TextView;
+            }
+
+            return view;
+        }
     }
 }
