@@ -10,15 +10,14 @@ namespace EchelonTouchInc.Gister.Api
 {
     public class GistApi
     {
-        public void Create(string content)
+        public void Create(string fileName, string content)
         {
             string realContent = content.Replace("\n", "\\n").Replace("\t", "\\t").Replace("\r", "\\r");
 
             var doc = @"{
-  ""description"": ""what the frick?"",
   ""public"": true,
   ""files"": {
-    ""file1.txt"": {
+    """ + fileName + @""": {
       ""content"": """ + realContent + @"""
     }
   }

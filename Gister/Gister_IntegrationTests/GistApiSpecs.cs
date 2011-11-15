@@ -17,7 +17,7 @@ namespace Gister_IntegrationTests
         [TestMethod]
         public void DoesntThrow___Cheater()
         {
-            new GistApi().Create("using System;\n\npublic class Class1\n{\n\tpublic Class1()\n\t{\n\t}\n}\n");
+            new GistApi().Create("somefile.cs", "something");
         }
     }
 }

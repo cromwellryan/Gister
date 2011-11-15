@@ -84,12 +84,7 @@ namespace EchelonTouchInc.Gister
 
             var gistContent = GetGistContent(view);
 
-            CreateGist(gistContent, "file1.cs");
-        }
-
-        private void CreateGist(string gistContent, string fileName)
-        {
-           new GistApi().Create(gistContent);
+            new GistApi().Create("file1.cs", gistContent);
         }
 
         private static string GetGistContent(IWpfTextView view)
