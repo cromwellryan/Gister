@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using EchelonTouchInc.Gister.Api;
 using EchelonTouchInc.Gister.FluentHttp;
+using EnvDTE;
 using FluentHttp;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Text.Editor;
@@ -82,9 +83,18 @@ namespace EchelonTouchInc.Gister
 
             if (view == null) return;
 
-            var gistContent = GetGistContent(view);
+            var fileName = GetFileName();
+            var content = GetGistContent(view);
 
-            new GistApi().Create("file1.cs", gistContent);
+            new GistApi().Create(fileName, content);
+        }
+
+        private string GetFileName()
+        {
+            var dte = (DTE) GetService(typeof (DTE));
+
+            var fileName = dte.ActiveWindow.Document.Name;
+            return fileName;
         }
 
         private static string GetGistContent(IWpfTextView view)
