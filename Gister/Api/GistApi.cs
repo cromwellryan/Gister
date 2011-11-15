@@ -26,7 +26,7 @@ namespace EchelonTouchInc.Gister.Api
 
             var response = new FluentHttpRequest()
                 .BaseUrl("https://api.github.com")
-                .AuthenticateUsing(new HttpBasicAuthenticator("cromwellryan", "w3bm0nk3y"))
+                .AuthenticateUsing(new HttpBasicAuthenticator("get", "real"))
                 .ResourcePath("/gists")
                 .Method("POST")
                 .Headers(h => h.Add("User-Agent", "Gister"))
