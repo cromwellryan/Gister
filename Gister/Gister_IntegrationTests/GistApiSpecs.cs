@@ -15,7 +15,7 @@ namespace Gister_IntegrationTests
     public class GistApiSpecs
     {
         [TestMethod]
-        public void EncodingIsDealtWith()
+        public void DoesntThrow___Cheater()
         {
             new GistApi().Create("using System;\n\npublic class Class1\n{\n\tpublic Class1()\n\t{\n\t}\n}\n");
         }
