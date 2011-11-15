@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using EchelonTouchInc.Gister.Api;
 using EchelonTouchInc.Gister.FluentHttp;
 using FluentHttp;
 using Microsoft.VisualStudio.Editor;
@@ -88,27 +89,8 @@ namespace EchelonTouchInc.Gister
 
         private void CreateGist(string gistContent, string fileName)
         {
-            var doc = @"{
-  ""description"": ""what the frick?"",
-  ""public"": true,
-  ""files"": {
-    ""file1.txt"": {
-      ""content"": """ + gistContent + @"""
-    }
-  }
-}";
-
-            var ar = new FluentHttpRequest()
-                            .BaseUrl("https://api.github.com")
-                            .AuthenticateUsing(new HttpBasicAuthenticator("cromwellryan", "w3bm0nk3y"))
-                            .ResourcePath("/gists")
-                            .Method("POST")
-                            .Headers(h => h.Add("User-Agent", "Gister"))
-                            .Headers(h => h.Add("Content-Type", "application/json"))
-                            .Body(x => x.Append(doc))
-                            .Execute();
-
-       }
+           new GistApi().Create(gistContent);
+        }
 
         private static string GetGistContent(IWpfTextView view)
         {
