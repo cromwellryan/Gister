@@ -10,7 +10,7 @@ namespace EchelonTouchInc.Gister.Api
     {
         public void Create(string fileName, string content)
         {
-            string realContent = content.Replace("\n", "\\n").Replace("\t", "\\t").Replace("\r", "\\r");
+            var realContent = content.Replace("\n", "\\n").Replace("\t", "\\t").Replace("\r", "\\r");
 
             var doc = @"{
   ""public"": true,
