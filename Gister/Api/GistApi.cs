@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Security;
+using System.Text;
 using EchelonTouchInc.Gister.FluentHttp;
 using FluentHttp;
 
@@ -10,7 +13,7 @@ namespace EchelonTouchInc.Gister.Api
     {
         public void Create(string fileName, string content)
         {
-            var realContent = content.Replace("\n", "\\n").Replace("\t", "\\t").Replace("\r", "\\r");
+            var realContent = CleanContent(content);
 
             var doc = @"{
   ""public"": true,
@@ -31,8 +34,18 @@ namespace EchelonTouchInc.Gister.Api
                 .Body(x => x.Append(doc))
                 .Execute();
 
-            if(response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
+            if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
                 throw new ApplicationException("");
+        }
+
+        private static string CleanContent(string content)
+        {
+            var itemsToBeCleaned = new Dictionary<string,string>
+                                       {
+                                           {"\t", "\\t"},
+                                           {"\r", "\\r"},
+                                       };
+            return itemsToBeCleaned.Aggregate(content, (current, item) => current.Replace(item.Key, item.Value));
         }
     }
 }
