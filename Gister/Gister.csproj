@@ -120,6 +120,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\GistApi.cs" />
+    <Compile Include="Api\GistCleaner.cs" />
+    <Compile Include="Api\GistJson.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="Resources.Designer.cs">

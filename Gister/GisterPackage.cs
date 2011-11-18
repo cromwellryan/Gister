@@ -83,13 +83,13 @@ namespace EchelonTouchInc.Gister
 
             if (view == null) return;
 
-            var fileName = GetFileName();
-            var content = GetGistContent(view);
+            var fileName = GetCurrentFilenameForGist();
+            var content = GetCurrentContentForGist(view);
 
             new GistApi().Create(fileName, content);
         }
 
-        private string GetFileName()
+        private string GetCurrentFilenameForGist()
         {
             var dte = (DTE) GetService(typeof (DTE));
 
@@ -97,7 +97,7 @@ namespace EchelonTouchInc.Gister
             return fileName;
         }
 
-        private static string GetGistContent(IWpfTextView view)
+        private static string GetCurrentContentForGist(IWpfTextView view)
         {
             if (SelectionIsAvailable(view))
                 return GetSelectedText(view);

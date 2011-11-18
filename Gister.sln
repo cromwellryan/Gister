@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gister", "Gister\Gister.csproj", "{901DD725-8340-46CE-BA3A-0CB7A2FB715B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gister_IntegrationTests", "Gister\Gister_IntegrationTests\Gister_IntegrationTests.csproj", "{184F34DF-7ECE-4822-ABB8-C625E647E37A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD8ADFD6-8A29-4B85-9309-3F2875BC40F2}"
 	ProjectSection(SolutionItems) = preProject
 		Gister.vsmdi = Gister.vsmdi
@@ -12,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		UnitTests.testsettings = UnitTests.testsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gister_UnitTests", "Gister\Gister_UnitTests\Gister_UnitTests.csproj", "{BE7373B9-FF1A-4B27-9053-1D24B18B1534}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GisterSpecs", "GisterSpecs\GisterSpecs.csproj", "{73D0F02E-8510-44EC-8CC1-8178C9A5E75E}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -27,14 +25,10 @@ Global
 		{901DD725-8340-46CE-BA3A-0CB7A2FB715B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{901DD725-8340-46CE-BA3A-0CB7A2FB715B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{901DD725-8340-46CE-BA3A-0CB7A2FB715B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{184F34DF-7ECE-4822-ABB8-C625E647E37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{184F34DF-7ECE-4822-ABB8-C625E647E37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{184F34DF-7ECE-4822-ABB8-C625E647E37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{184F34DF-7ECE-4822-ABB8-C625E647E37A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE7373B9-FF1A-4B27-9053-1D24B18B1534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE7373B9-FF1A-4B27-9053-1D24B18B1534}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE7373B9-FF1A-4B27-9053-1D24B18B1534}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE7373B9-FF1A-4B27-9053-1D24B18B1534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D0F02E-8510-44EC-8CC1-8178C9A5E75E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D0F02E-8510-44EC-8CC1-8178C9A5E75E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D0F02E-8510-44EC-8CC1-8178C9A5E75E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D0F02E-8510-44EC-8CC1-8178C9A5E75E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
