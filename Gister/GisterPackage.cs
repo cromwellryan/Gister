@@ -4,9 +4,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using EchelonTouchInc.Gister.Api;
-using EchelonTouchInc.Gister.FluentHttp;
 using EnvDTE;
-using FluentHttp;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
@@ -45,7 +43,7 @@ namespace EchelonTouchInc.Gister
         /// </summary>
         public GisterPackage()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
         }
 
         /////////////////////////////////////////////////////////////////////////////
@@ -127,7 +125,7 @@ namespace EchelonTouchInc.Gister
         private IWpfTextView GetActiveTextView()
         {
             IWpfTextView view = null;
-            IVsTextView vTextView = null;
+            IVsTextView vTextView;
 
             var txtMgr = (IVsTextManager)GetService(typeof(SVsTextManager));
             const int mustHaveFocus = 1;
