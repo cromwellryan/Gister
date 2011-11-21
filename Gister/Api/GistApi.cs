@@ -7,6 +7,10 @@ namespace EchelonTouchInc.Gister.Api
 {
     public class GistApi
     {
+        public GistApi()
+        {
+            StatusUpdates = new NoStatusUpdates();
+        }
         public void Create(string fileName, string content, string githubusername, string githubpassword)
         {
             StatusUpdates.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
