@@ -20,6 +20,7 @@ namespace EchelonTouchInc.Gister.Api
             catch (ApplicationException ex)
             {
                 StatusUpdates.NotifyUserThat(string.Format("Gist not created.  {0}", ex.Message));
+                return;
             }
 
             StatusUpdates.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");

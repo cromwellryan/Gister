@@ -19,7 +19,7 @@ namespace GisterSpecs
             gistApi.Create("file1.cs", "Dum diddy, dum diddy", "get", "real");
 
             // Really annoying that ShouldFluent Contains wasn't working...
-            statusUpdates.LastUpdate.FirstOrDefault(x => x == "Creating gist for file1.cs").Should().Not.Be.Null();
+            statusUpdates.Notifications.FirstOrDefault(x => x == "Creating gist for file1.cs").Should().Not.Be.Null();
         }
 
         [Test]
@@ -30,12 +30,12 @@ namespace GisterSpecs
 
             gistApi.Create("file2.cs", "Zippity do dah, zippity ah", "get", "real");
 
-            statusUpdates.LastUpdate.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.")
+            statusUpdates.Notifications.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.")
                 .Should().Not.Be.Null();
         }
 
         [Test]
-        public void WilLTellTheUserWhenItScrewsUp()
+        public void WillTellTheUserWhenItScrewsUp()
         {
             var statusUpdates = new MockStatusUpdates();
             var sender = new MockGitHubSender();
@@ -45,8 +45,7 @@ namespace GisterSpecs
 
             gistApi.Create("file3.cs", "Out of fun kids songs.", "me", "nahnah");
 
-            statusUpdates.LastUpdate.FirstOrDefault(x => x == "Gist not created.  Your password is terrible.").Should().
-                Not.Be.Null();
+            statusUpdates.LastUpdate.Should().Equal("Gist not created.  Your password is terrible.");
         }
     }
 
@@ -77,10 +76,14 @@ namespace GisterSpecs
 
     public class MockStatusUpdates : StatusUpdates
     {
-        public List<string> LastUpdate = new List<string>();
+        public List<string> Notifications = new List<string>();
+
+        public string LastUpdate { get; private set; }
+
         public void NotifyUserThat(string messagetotelltheuser)
         {
-            LastUpdate.Add(messagetotelltheuser);
+            Notifications.Add(messagetotelltheuser);
+            LastUpdate = messagetotelltheuser;
         }
     }
 }
