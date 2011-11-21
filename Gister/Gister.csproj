@@ -120,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\GistApi.cs" />
-    <Compile Include="Api\GistApiFactory.cs" />
     <Compile Include="Api\GistCleaner.cs" />
     <Compile Include="Api\GistJson.cs" />
     <Compile Include="Api\GitHubSender.cs" />
@@ -128,7 +127,9 @@
     <Compile Include="Api\NoStatusUpdates.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
     <Compile Include="Api\StatusUpdates.cs" />
+    <Compile Include="Api\VsStatusUpdates.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
+    <Compile Include="GisterPackage.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -136,7 +137,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GisterPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdID.cs" />
   </ItemGroup>

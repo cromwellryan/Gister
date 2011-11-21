@@ -8,6 +8,7 @@ using EchelonTouchInc.Gister.FluentHttp;
 using EnvDTE;
 using FluentHttp;
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Shell;
@@ -87,12 +88,18 @@ namespace EchelonTouchInc.Gister
             var fileName = GetCurrentFilenameForGist();
             var content = GetCurrentContentForGist(view);
 
-            GistApiFactory.CreateGistApi().Create(fileName, content, "get", "real");
+            var gistApi = new GistApi
+            {
+                GitHubSender = new HttpGitHubSender(),
+                StatusUpdates = new VsStatusUpdates((IOleComponentUIManager)GetService(typeof(IOleComponentUIManager)))
+            };
+
+            gistApi.Create(fileName, content, "get", "real");
         }
 
         private string GetCurrentFilenameForGist()
         {
-            var dte = (DTE) GetService(typeof (DTE));
+            var dte = (DTE)GetService(typeof(DTE));
 
             return dte.ActiveWindow.Document.Name;
         }
