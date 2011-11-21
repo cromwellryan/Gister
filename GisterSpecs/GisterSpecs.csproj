@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreatingGistJsonRequests.cs" />
+    <Compile Include="CreatingGists.cs" />
     <Compile Include="GistContentCleaning.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

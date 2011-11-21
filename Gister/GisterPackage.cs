@@ -87,7 +87,7 @@ namespace EchelonTouchInc.Gister
             var fileName = GetCurrentFilenameForGist();
             var content = GetCurrentContentForGist(view);
 
-            new GistApi().Create(fileName, content);
+            new GistApi().Create(fileName, content, "get", "real");
         }
 
         private string GetCurrentFilenameForGist()

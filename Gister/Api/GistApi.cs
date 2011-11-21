@@ -7,14 +7,15 @@ namespace EchelonTouchInc.Gister.Api
 {
     public class GistApi
     {
-        public void Create(string fileName, string content)
+        public void Create(string fileName, string content, string githubusername, string githubpassword)
         {
+            StatusUpdates.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
 
             var gistAsJson = new GistJson().CreateFrom(fileName, content);
 
             var response = new FluentHttpRequest()
                 .BaseUrl("https://api.github.com")
-                .AuthenticateUsing(new HttpBasicAuthenticator("get", "real"))
+                .AuthenticateUsing(new HttpBasicAuthenticator(githubusername, githubpassword))
                 .ResourcePath("/gists")
                 .Method("POST")
                 .Headers(h => h.Add("User-Agent", "Gister"))
@@ -25,5 +26,7 @@ namespace EchelonTouchInc.Gister.Api
             if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
                 throw new ApplicationException("");
         }
+
+        public StatusUpdates StatusUpdates { get; set; }
     }
 }
