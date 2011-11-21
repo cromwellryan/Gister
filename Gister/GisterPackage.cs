@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using System.Windows.Forms;
 using EchelonTouchInc.Gister.Api;
 using EnvDTE;
 using Microsoft.VisualStudio.Editor;
@@ -89,7 +90,8 @@ namespace EchelonTouchInc.Gister
             var gistApi = new GistApi
             {
                 GitHubSender = new HttpGitHubSender(),
-                StatusUpdates = new VsStatusUpdates((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)))
+                StatusUpdates = new VsStatusUpdates((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager))),
+                UrlAvailable = url => Clipboard.SetText(url)
             };
 
             gistApi.Create(fileName, content, "get", "real");

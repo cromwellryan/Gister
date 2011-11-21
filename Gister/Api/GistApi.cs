@@ -8,14 +8,17 @@ namespace EchelonTouchInc.Gister.Api
         {
             StatusUpdates = new NoStatusUpdates();
             GitHubSender = new NoWhereGitHubSender();
+            UrlAvailable = (s) => { };
         }
         public void Create(string fileName, string content, string githubusername, string githubpassword)
         {
             StatusUpdates.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
 
+            string gistUrl = null;
+
             try
             {
-                GitHubSender.SendGist(fileName, content, githubusername, githubpassword);
+                gistUrl = GitHubSender.SendGist(fileName, content, githubusername, githubpassword);
             }
             catch (ApplicationException ex)
             {
@@ -23,11 +26,14 @@ namespace EchelonTouchInc.Gister.Api
                 return;
             }
 
+            UrlAvailable(gistUrl);
             StatusUpdates.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
         }
 
         public StatusUpdates StatusUpdates { get; set; }
 
         public GitHubSender GitHubSender { get; set; }
+
+        public Action<string> UrlAvailable { get; set; }
     }
 }

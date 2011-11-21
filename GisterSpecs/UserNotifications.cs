@@ -55,12 +55,16 @@ namespace GisterSpecs
 
         public bool SentAGist { get; private set; }
 
-        public void SendGist(string fileName, string content, string githubusername, string githubpassword)
+        public string ResultingUrl { get; set; }
+
+        public string SendGist(string fileName, string content, string githubusername, string githubpassword)
         {
             if (ShouldThrow())
                 throw new ApplicationException(failureStatusDescription);
 
             SentAGist = true;
+
+            return ResultingUrl;
         }
 
         private bool ShouldThrow()
