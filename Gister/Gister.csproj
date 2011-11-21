@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\GistApi.cs" />
+    <Compile Include="Api\GistApiFactory.cs" />
     <Compile Include="Api\GistCleaner.cs" />
     <Compile Include="Api\GistJson.cs" />
     <Compile Include="Api\GitHubSender.cs" />
