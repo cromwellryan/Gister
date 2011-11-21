@@ -91,7 +91,7 @@ namespace EchelonTouchInc.Gister
             var gistApi = new GistApi
             {
                 GitHubSender = new HttpGitHubSender(),
-                StatusUpdates = new VsStatusUpdates((IOleComponentUIManager)GetService(typeof(IOleComponentUIManager)))
+                StatusUpdates = new VsStatusUpdates((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)))
             };
 
             gistApi.Create(fileName, content, "get", "real");

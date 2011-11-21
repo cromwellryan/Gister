@@ -22,7 +22,7 @@ namespace EchelonTouchInc.Gister.Api
                 .Execute();
 
             if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
-                throw new ApplicationException("");
+                throw new ApplicationException(response.Response.HttpWebResponse.StatusDescription);
 
         }
     }

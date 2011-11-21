@@ -1,4 +1,6 @@
-﻿namespace EchelonTouchInc.Gister.Api
+﻿using System;
+
+namespace EchelonTouchInc.Gister.Api
 {
     public class GistApi
     {
@@ -11,8 +13,14 @@
         {
             StatusUpdates.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
 
-            GitHubSender.SendGist(fileName, content, githubusername, githubpassword);
-
+            try
+            {
+                GitHubSender.SendGist(fileName, content, githubusername, githubpassword);
+            }
+            catch (ApplicationException ex)
+            {
+                StatusUpdates.NotifyUserThat(string.Format("Gist not created.  {0}", ex.Message));
+            }
 
             StatusUpdates.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
         }
