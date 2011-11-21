@@ -122,7 +122,10 @@
     <Compile Include="Api\GistApi.cs" />
     <Compile Include="Api\GistCleaner.cs" />
     <Compile Include="Api\GistJson.cs" />
+    <Compile Include="Api\GitHubSender.cs" />
+    <Compile Include="Api\HttpGitHubSender.cs" />
     <Compile Include="Api\NoStatusUpdates.cs" />
+    <Compile Include="Api\NoWhereGitHubSender.cs" />
     <Compile Include="Api\StatusUpdates.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="Guids.cs" />

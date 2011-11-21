@@ -7,7 +7,7 @@ using Should.Fluent;
 namespace GisterSpecs
 {
     [TestFixture]
-    public class CreatingGists
+    public class UserNotifications
     {
         [Test]
         public void WillTellTheUserWhenItStarts()
@@ -29,7 +29,18 @@ namespace GisterSpecs
 
             gistApi.Create("file2.cs", "Zippity do dah, zippity ah", "get", "real");
 
-            statusUpdates.LastUpdate.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.").Should().Not.Be.Null();
+            statusUpdates.LastUpdate.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.")
+                .Should().Not.Be.Null();
+        }
+
+    }
+
+    public class MockGitHubSender : GitHubSender
+    {
+        public bool SentAGist { get; private set; }
+        public void SendGist(string fileName, string content, string githubusername, string githubpassword)
+        {
+            SentAGist = true;
         }
     }
 
