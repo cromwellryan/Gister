@@ -66,7 +66,7 @@
 
       <Button guid="guidGisterCmdSet" id="cmdCreateGist" priority="0x0100" type="Button">
         <Parent guid="guidGisterCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="gistLogo" />
         <Strings>
           <CommandName>cmdCreateGist</CommandName>
           <ButtonText>Create Gist</ButtonText>
@@ -84,7 +84,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used 
             inside a button definition. An important aspect of this declaration is that the element id 
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\Images_32bit.bmp" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
+      <Bitmap guid="guidImages" href="Resources\logo_gist.ico" usedList="gistLogo"/>
 
     </Bitmaps>
  
@@ -108,12 +108,8 @@
     
     
     <GuidSymbol name="guidImages" value="{f919a468-ffde-49da-b110-0d63ae4690b2}" >
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-    </GuidSymbol>
+      <IDSymbol name="gistLogo" value="1" />
+   </GuidSymbol>
   </Symbols>
 
 </CommandTable>

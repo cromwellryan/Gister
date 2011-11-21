@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EchelonTouchInc.Gister.Api;
+﻿using EchelonTouchInc.Gister.Api;
 using NUnit.Framework;
 using Should.Fluent;
 

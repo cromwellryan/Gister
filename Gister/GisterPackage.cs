@@ -57,18 +57,19 @@ namespace EchelonTouchInc.Gister
         /// </summary>
         protected override void Initialize()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
+
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (null != mcs)
-            {
-                // Create the command for the menu item.
-                CommandID menuCommandID = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGist);
-                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
-                mcs.AddCommand(menuItem);
-            }
+            var mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+
+            if (null == mcs) return;
+
+            // Create the command for the menu item.
+            var createGistCommand = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGist);
+            var createGistMenuItem = new MenuCommand(CreateGist, createGistCommand);
+            mcs.AddCommand(createGistMenuItem);
         }
         #endregion
 
@@ -77,7 +78,7 @@ namespace EchelonTouchInc.Gister
         /// See the Initialize method to see how the menu item is associated to this function using
         /// the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
-        private void MenuItemCallback(object sender, EventArgs e)
+        private void CreateGist(object sender, EventArgs e)
         {
             var view = GetActiveTextView();
 
@@ -93,8 +94,7 @@ namespace EchelonTouchInc.Gister
         {
             var dte = (DTE) GetService(typeof (DTE));
 
-            var fileName = dte.ActiveWindow.Document.Name;
-            return fileName;
+            return dte.ActiveWindow.Document.Name;
         }
 
         private static string GetCurrentContentForGist(IWpfTextView view)
@@ -122,9 +122,9 @@ namespace EchelonTouchInc.Gister
             IWpfTextView view = null;
             IVsTextView vTextView = null;
 
-            var txtMgr =
-                (IVsTextManager)GetService(typeof(SVsTextManager));
+            var txtMgr = (IVsTextManager)GetService(typeof(SVsTextManager));
             const int mustHaveFocus = 1;
+
             txtMgr.GetActiveView(mustHaveFocus, null, out vTextView);
 
             var userData = vTextView as IVsUserData;

@@ -159,7 +159,7 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Images_32bit.bmp" />
+    <None Include="Resources\logo_gist.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Package.ico" />
