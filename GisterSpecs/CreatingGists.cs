@@ -15,7 +15,7 @@ namespace GisterSpecs
             var statusUpdates = new MockStatusUpdates();
             var gistApi = new GistApi { StatusUpdates = statusUpdates };
 
-            gistApi.Create("file1.cs", "Dum diddy, dum diddy", "cromwellryan", "ship it n0w!");
+            gistApi.Create("file1.cs", "Dum diddy, dum diddy", "get", "real");
 
             // Really annoying that ShouldFluent Contains wasn't working...
             statusUpdates.LastUpdate.FirstOrDefault(x => x == "Creating gist for file1.cs").Should().Not.Be.Null();
@@ -27,7 +27,7 @@ namespace GisterSpecs
             var statusUpdates = new MockStatusUpdates();
             var gistApi = new GistApi { StatusUpdates = statusUpdates };
 
-            gistApi.Create("file2.cs", "Zippity do dah, zippity ah", "cromwellryan", "ship it n0w!");
+            gistApi.Create("file2.cs", "Zippity do dah, zippity ah", "get", "real");
 
             statusUpdates.LastUpdate.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.").Should().Not.Be.Null();
         }
