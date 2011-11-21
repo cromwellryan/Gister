@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreatingGistJsonRequests.cs" />
+    <Compile Include="EasyIntegrationTest.cs" />
     <Compile Include="UploadingGists.cs" />
     <Compile Include="UserNotifications.cs" />
     <Compile Include="GistContentCleaning.cs" />
