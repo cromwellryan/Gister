@@ -25,6 +25,8 @@ namespace EchelonTouchInc.Gister.Api
 
             if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
                 throw new ApplicationException("");
+
+            StatusUpdates.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
         }
 
         public StatusUpdates StatusUpdates { get; set; }
