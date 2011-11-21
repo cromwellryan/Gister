@@ -13,8 +13,8 @@ namespace GisterSpecs
         [Test]
         public void DoWop()
         {
-            new GistApi() { GitHubSender = new HttpGitHubSender() }.Create("wopwop.js", "dowop", "cromwellryan",
-                                                                         "ship it n0w!");
+            new GistApi() { GitHubSender = new HttpGitHubSender() }.Create("wopwop.js", "dowop", "get",
+                                                                         "real");
         }
     }
 }
