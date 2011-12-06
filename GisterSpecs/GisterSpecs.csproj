@@ -59,7 +59,7 @@
     <Compile Include="RetrievesGitHubCredentials_Specs.cs" />
     <Compile Include="UploadingGists.cs" />
     <Compile Include="UserNotifications.cs" />
-    <Compile Include="GistContentCleaning.cs" />
+    <Compile Include="CleansGistContent_Specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -123,7 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\GistApi.cs" />
-    <Compile Include="Api\GistCleaner.cs" />
+    <Compile Include="Api\CleansGistContent.cs" />
     <Compile Include="Api\CreatesGistMessages.cs" />
     <Compile Include="Api\GitHubCredentials.cs" />
     <Compile Include="Api\GitHubSender.cs" />

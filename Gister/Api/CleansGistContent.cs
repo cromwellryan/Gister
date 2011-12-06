@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace EchelonTouchInc.Gister.Api
 {
-    public class GistCleaner
+    public class CleansGistContent
     {
         public string Clean(string content)
         {
