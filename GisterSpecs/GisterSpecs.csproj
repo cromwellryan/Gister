@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatingGistJsonRequests.cs" />
+    <Compile Include="CreatsGistMessages.cs" />
     <Compile Include="EasyIntegrationTest.cs" />
     <Compile Include="FileSystemCredentials.cs" />
     <Compile Include="UploadingGists.cs" />

@@ -12,7 +12,7 @@ namespace EchelonTouchInc.Gister.Api
     {
         public string SendGist(string fileName, string content, string githubusername, string githubpassword)
         {
-            var gistAsJson = new GistJson().CreateFrom(fileName, content);
+            var gistAsJson = new CreatesGistMessages().CreateMessage(fileName, content);
 
             var response = new FluentHttpRequest()
                 .BaseUrl("https://api.github.com")

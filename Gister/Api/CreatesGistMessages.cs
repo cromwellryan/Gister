@@ -1,8 +1,8 @@
 namespace EchelonTouchInc.Gister.Api
 {
-    public class GistJson
+    public class CreatesGistMessages
     {
-        public string CreateFrom(string filename, string content)
+        public string CreateMessage(string filename, string content)
         {
             var realContent = new GistCleaner().Clean(content);
             

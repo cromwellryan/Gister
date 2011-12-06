@@ -5,12 +5,12 @@ using Should.Fluent;
 namespace GisterSpecs
 {
     [TestFixture]
-    public class CreatingGistJsonRequests
+    public class CreatsGistMessages
     {
         [Test]
-        public void CreatesJsonDocumentForOneFile()
+        public void ShouldEncodeMessagesAsJson()
         {
-            new GistJson().CreateFrom("myfile.cs", "Some super sweet gistiness").Should().Equal(
+            new CreatesGistMessages().CreateMessage("myfile.cs", "Some super sweet gistiness").Should().Equal(
                 @"{
   ""public"": true,
   ""files"": {
