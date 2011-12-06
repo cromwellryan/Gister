@@ -7,16 +7,23 @@ using Should.Fluent;
 
 namespace GisterSpecs
 {
+    class NoOpUpdatesStatus : UpdatesStatus
+    {
+        public void NotifyUserThat(string messagetotelltheuser)
+        {
+        }
+    }
+
     [TestFixture]
     public class UserNotifications
     {
         [Test]
         public void WillTellTheUserWhenItStarts()
         {
-            var statusUpdates = new MockStatusUpdates();
-            var gistApi = new GistApi { StatusUpdates = statusUpdates };
+            var statusUpdates = new MockUpdatesStatus();
+            var gistApi = new GistApi { PresentStatusUpdate = statusUpdates.NotifyUserThat };
 
-            gistApi.Create("file1.cs", "Dum diddy, dum diddy", "get", "real");
+            gistApi.Create(new GitHubCredentials("get", "real"), "file1.cs", "Dum diddy, dum diddy");
 
             // Really annoying that ShouldFluent Contains wasn't working...
             statusUpdates.Notifications.FirstOrDefault(x => x == "Creating gist for file1.cs").Should().Not.Be.Null();
@@ -25,10 +32,10 @@ namespace GisterSpecs
         [Test]
         public void WillTellTheUserWhenItsSuccessful()
         {
-            var statusUpdates = new MockStatusUpdates();
-            var gistApi = new GistApi { StatusUpdates = statusUpdates };
+            var statusUpdates = new MockUpdatesStatus();
+            var gistApi = new GistApi { PresentStatusUpdate = statusUpdates.NotifyUserThat };
 
-            gistApi.Create("file2.cs", "Zippity do dah, zippity ah", "get", "real");
+            gistApi.Create(new GitHubCredentials("get", "real"), "file2.cs", "Zippity do dah, zippity ah");
 
             statusUpdates.Notifications.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.")
                 .Should().Not.Be.Null();
@@ -37,13 +44,17 @@ namespace GisterSpecs
         [Test]
         public void WillTellTheUserWhenItScrewsUp()
         {
-            var statusUpdates = new MockStatusUpdates();
+            var statusUpdates = new MockUpdatesStatus();
             var sender = new MockGitHubSender();
             sender.FailWith("Your password is terrible.");
 
-            var gistApi = new GistApi { StatusUpdates = statusUpdates, GitHubSender = sender };
+            var gistApi = new GistApi
+            {
+                PresentStatusUpdate = statusUpdates.NotifyUserThat,
+                GitHubSender = sender
+            };
 
-            gistApi.Create("file3.cs", "Out of fun kids songs.", "me", "nahnah");
+            gistApi.Create(new GitHubCredentials("me", "nahnah"), "file3.cs", "Out of fun kids songs.");
 
             statusUpdates.LastUpdate.Should().Equal("Gist not created.  Your password is terrible.");
         }
@@ -78,7 +89,7 @@ namespace GisterSpecs
         }
     }
 
-    public class MockStatusUpdates : StatusUpdates
+    public class MockUpdatesStatus : UpdatesStatus
     {
         public List<string> Notifications = new List<string>();
 

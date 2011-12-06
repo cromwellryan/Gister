@@ -86,17 +86,18 @@ namespace EchelonTouchInc.Gister
 
             var fileName = GetCurrentFilenameForGist();
             var content = GetCurrentContentForGist(view);
+            var updateStatus = new UpdateVisualStudioStatus((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)));
 
             var gistApi = new GistApi
             {
                 GitHubSender = new HttpGitHubSender(),
-                StatusUpdates = new VsStatusUpdates((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager))),
+                PresentStatusUpdate = updateStatus.NotifyUserThat,
                 UrlAvailable = url => Clipboard.SetText(url)
             };
 
-            var credentials = new GitHubFileSystemCredentialStore().GetCredentials();
+            var credentials = new RetrievesGitHubCredentials().GetCredentials();
 
-            gistApi.Create(fileName, content, credentials.Username, credentials.Password);
+            gistApi.Create(new GitHubCredentials(credentials.Username, credentials.Password), fileName, content);
         }
 
         private string GetCurrentFilenameForGist()

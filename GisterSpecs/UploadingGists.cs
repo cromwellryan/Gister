@@ -12,7 +12,7 @@ namespace GisterSpecs
             var gitHubSender = new MockGitHubSender();
             var gistApi = new GistApi { GitHubSender = gitHubSender };
 
-            gistApi.Create("file3.cs", "My oh my", "get", "real");
+            gistApi.Create(new GitHubCredentials("get", "real"), "file3.cs", "My oh my");
 
             gitHubSender.SentAGist.Should().Be.True();
         }
@@ -24,7 +24,7 @@ namespace GisterSpecs
             var gitHubSender = new MockGitHubSender() { ResultingUrl = "http://gist.github.com/123" };
             var gistApi = new GistApi { GitHubSender = gitHubSender, UrlAvailable = url=>actualUrl = url };
 
-            gistApi.Create("file3.cs", "My oh my", "get", "real");
+            gistApi.Create(new GitHubCredentials("get", "real"), "file3.cs", "My oh my");
 
             actualUrl.Should().Equal("http://gist.github.com/123");
 

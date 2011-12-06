@@ -1,39 +1,49 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace EchelonTouchInc.Gister.Api
 {
     public class GistApi
     {
+        private readonly Action<string> NoOp = s => { };
+
         public GistApi()
         {
-            StatusUpdates = new NoStatusUpdates();
             GitHubSender = new NoWhereGitHubSender();
-            UrlAvailable = (s) => { };
+            UrlAvailable = NoOp;
+            PresentStatusUpdate = NoOp;
         }
-        public void Create(string fileName, string content, string githubusername, string githubpassword)
-        {
-            StatusUpdates.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
 
-            string gistUrl = null;
+        public void Create(GitHubCredentials gitHubCredentials, string fileName, string content)
+        {
+            NotifyStatusChanged(string.Format("Creating gist for {0}", fileName));
+
+            string gistUrl;
 
             try
             {
-                gistUrl = GitHubSender.SendGist(fileName, content, githubusername, githubpassword);
+                gistUrl = GitHubSender.SendGist(fileName, content, gitHubCredentials.Username, gitHubCredentials.Password);
             }
             catch (ApplicationException ex)
             {
-                StatusUpdates.NotifyUserThat(string.Format("Gist not created.  {0}", ex.Message));
+                NotifyStatusChanged(string.Format("Gist not created.  {0}", ex.Message));
                 return;
             }
 
             UrlAvailable(gistUrl);
-            StatusUpdates.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+            NotifyStatusChanged("Gist created successfully.  Url placed in the clipboard.");
         }
 
-        public StatusUpdates StatusUpdates { get; set; }
+        private void NotifyStatusChanged(string message)
+        {
+            PresentStatusUpdate(message);
+        }
 
-        public GitHubSender GitHubSender { get; set; }
+        public UpdatesStatus UpdatesStatus { get; set; }
 
+        public GitHubSender GitHubSender { get; set; } 
         public Action<string> UrlAvailable { get; set; }
+
+        public Action<string> PresentStatusUpdate { get; set; }
     }
 }

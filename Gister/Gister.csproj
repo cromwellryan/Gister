@@ -125,15 +125,16 @@
     <Compile Include="Api\GistApi.cs" />
     <Compile Include="Api\GistCleaner.cs" />
     <Compile Include="Api\GistJson.cs" />
+    <Compile Include="Api\GitHubCredentials.cs" />
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
-    <Compile Include="Api\NoStatusUpdates.cs" />
+    <Compile Include="Api\NoUpdatesStatus.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
-    <Compile Include="Api\StatusUpdates.cs" />
-    <Compile Include="Api\VsStatusUpdates.cs" />
+    <Compile Include="Api\UpdatesStatus.cs" />
+    <Compile Include="Api\UpdateVisualStudioStatus.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="GisterPackage.cs" />
-    <Compile Include="GitHubFileSystemCredentialStore.cs" />
+    <Compile Include="RetrievesGitHubCredentials.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

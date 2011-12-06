@@ -10,8 +10,7 @@ namespace GisterSpecs
         [Ignore("This is for playing.")]
         public void DoWop()
         {
-            new GistApi { GitHubSender = new HttpGitHubSender() }.Create("wopwop.js", "dowop", "get",
-                                                                         "real");
+            new GistApi { GitHubSender = new HttpGitHubSender() }.Create(new GitHubCredentials("get", "real"), "wopwop.js", "dowop");
         }
     }
 }

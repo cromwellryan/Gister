@@ -17,7 +17,7 @@ namespace GisterSpecs
         {
             var path = Path.GetTempFileName();
             File.WriteAllLines(path, new[] {@"me", @"secret"});
-            var store = new GitHubFileSystemCredentialStore();
+            var store = new RetrievesGitHubCredentials();
 
             store.TestPathToCredentials = path;
 

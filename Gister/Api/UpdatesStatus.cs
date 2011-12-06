@@ -1,6 +1,6 @@
 namespace EchelonTouchInc.Gister.Api
 {
-    public interface StatusUpdates
+    public interface UpdatesStatus
     {
         void NotifyUserThat(string messagetotelltheuser);
     }

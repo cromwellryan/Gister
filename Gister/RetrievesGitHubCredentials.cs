@@ -1,10 +1,20 @@
 using System;
 using System.IO;
+using EchelonTouchInc.Gister.Api;
 
 namespace EchelonTouchInc.Gister
 {
-    public class GitHubFileSystemCredentialStore
+    public class RetrievesGitHubCredentials
     {
+        public string TestPathToCredentials { get; set; }
+
+        public GitHubCredentials GetCredentials()
+        {
+            var pathToCredentialsFile = GetPathToCredentialsFile();
+            var lines = File.ReadAllLines(pathToCredentialsFile);
+
+            return DecodeGitHubCredentialsFromFile(lines);
+        }
 
         private string GetPathToCredentialsFile()
         {
@@ -23,33 +33,9 @@ namespace EchelonTouchInc.Gister
             return !string.IsNullOrEmpty(TestPathToCredentials);
         }
 
-        public string TestPathToCredentials { get; set; }
-
-        public GitHubCredentials GetCredentials()
-        {
-            var pathToCredentialsFile = GetPathToCredentialsFile();
-            var lines = File.ReadAllLines(pathToCredentialsFile);
-
-            return DecodeGitHubCredentialsFromFile(lines);
-        }
-
         private GitHubCredentials DecodeGitHubCredentialsFromFile(string[] lines)
         {
             return new GitHubCredentials(lines[0], lines[1]);
         }
-    }
-
-
-    public class GitHubCredentials
-    {
-        public GitHubCredentials(string username, string password)
-        {
-            Username = username;
-            Password = password;
-        }
-
-        public string Password { get; private set; }
-
-        public string Username { get; private set; }
     }
 }

@@ -3,11 +3,11 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 namespace EchelonTouchInc.Gister.Api
 {
-    public class VsStatusUpdates : StatusUpdates
+    public class UpdateVisualStudioStatus : UpdatesStatus
     {
         private readonly IOleComponentUIManager uiManager;
 
-        public VsStatusUpdates(IOleComponentUIManager uiManager)
+        public UpdateVisualStudioStatus(IOleComponentUIManager uiManager)
         {
             this.uiManager = uiManager;
         }
