@@ -7,15 +7,8 @@ using Should.Fluent;
 
 namespace GisterSpecs
 {
-    class NoOpUpdatesStatus : UpdatesStatus
-    {
-        public void NotifyUserThat(string messagetotelltheuser)
-        {
-        }
-    }
-
     [TestFixture]
-    public class UserNotifications
+    public class UploadsGists_UserNotifications_Specs
     {
         [Test]
         public void WillTellTheUserWhenItStarts()
