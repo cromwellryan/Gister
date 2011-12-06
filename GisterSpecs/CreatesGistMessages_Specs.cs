@@ -5,7 +5,7 @@ using Should.Fluent;
 namespace GisterSpecs
 {
     [TestFixture]
-    public class CreatsGistMessages
+    public class CreatesGistMessages_Specs
     {
         [Test]
         public void ShouldEncodeMessagesAsJson()
