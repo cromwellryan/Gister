@@ -57,7 +57,7 @@
     <Compile Include="CreatesGistMessages_Specs.cs" />
     <Compile Include="EasyIntegrationTest.cs" />
     <Compile Include="RetrievesGitHubCredentials_Specs.cs" />
-    <Compile Include="UploadingGists.cs" />
+    <Compile Include="UploadsGists_Specs.cs" />
     <Compile Include="UserNotifications.cs" />
     <Compile Include="CleansGistContent_Specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

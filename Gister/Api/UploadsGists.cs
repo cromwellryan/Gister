@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 namespace EchelonTouchInc.Gister.Api
 {
-    public class GistApi
+    public class UploadsGists
     {
         private readonly Action<string> NoOp = s => { };
 
-        public GistApi()
+        public UploadsGists()
         {
             GitHubSender = new NoWhereGitHubSender();
             UrlAvailable = NoOp;

@@ -21,7 +21,7 @@ namespace GisterSpecs
         public void WillTellTheUserWhenItStarts()
         {
             var statusUpdates = new MockUpdatesStatus();
-            var gistApi = new GistApi { PresentStatusUpdate = statusUpdates.NotifyUserThat };
+            var gistApi = new UploadsGists { PresentStatusUpdate = statusUpdates.NotifyUserThat };
 
             gistApi.Create(new GitHubCredentials("get", "real"), "file1.cs", "Dum diddy, dum diddy");
 
@@ -33,7 +33,7 @@ namespace GisterSpecs
         public void WillTellTheUserWhenItsSuccessful()
         {
             var statusUpdates = new MockUpdatesStatus();
-            var gistApi = new GistApi { PresentStatusUpdate = statusUpdates.NotifyUserThat };
+            var gistApi = new UploadsGists { PresentStatusUpdate = statusUpdates.NotifyUserThat };
 
             gistApi.Create(new GitHubCredentials("get", "real"), "file2.cs", "Zippity do dah, zippity ah");
 
@@ -48,7 +48,7 @@ namespace GisterSpecs
             var sender = new MockGitHubSender();
             sender.FailWith("Your password is terrible.");
 
-            var gistApi = new GistApi
+            var gistApi = new UploadsGists
             {
                 PresentStatusUpdate = statusUpdates.NotifyUserThat,
                 GitHubSender = sender

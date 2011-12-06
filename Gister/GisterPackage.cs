@@ -88,7 +88,7 @@ namespace EchelonTouchInc.Gister
             var content = GetCurrentContentForGist(view);
             var updateStatus = new UpdateVisualStudioStatus((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)));
 
-            var gistApi = new GistApi
+            var gistApi = new UploadsGists
             {
                 GitHubSender = new HttpGitHubSender(),
                 PresentStatusUpdate = updateStatus.NotifyUserThat,

@@ -4,13 +4,13 @@ using Should.Fluent;
 
 namespace GisterSpecs
 {
-    public class UploadingGists
+    public class UploadsGists_Specs
     {
         [Test]
         public void UploadTheGistToGitHub()
         {
             var gitHubSender = new MockGitHubSender();
-            var gistApi = new GistApi { GitHubSender = gitHubSender };
+            var gistApi = new UploadsGists { GitHubSender = gitHubSender };
 
             gistApi.Create(new GitHubCredentials("get", "real"), "file3.cs", "My oh my");
 
@@ -22,7 +22,7 @@ namespace GisterSpecs
             string actualUrl = null;
 
             var gitHubSender = new MockGitHubSender() { ResultingUrl = "http://gist.github.com/123" };
-            var gistApi = new GistApi { GitHubSender = gitHubSender, UrlAvailable = url=>actualUrl = url };
+            var gistApi = new UploadsGists { GitHubSender = gitHubSender, UrlAvailable = url=>actualUrl = url };
 
             gistApi.Create(new GitHubCredentials("get", "real"), "file3.cs", "My oh my");
 

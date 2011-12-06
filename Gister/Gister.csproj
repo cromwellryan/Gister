@@ -122,13 +122,12 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\GistApi.cs" />
+    <Compile Include="Api\UploadsGists.cs" />
     <Compile Include="Api\CleansGistContent.cs" />
     <Compile Include="Api\CreatesGistMessages.cs" />
     <Compile Include="Api\GitHubCredentials.cs" />
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
-    <Compile Include="Api\NoUpdatesStatus.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
     <Compile Include="Api\UpdatesStatus.cs" />
     <Compile Include="Api\UpdateVisualStudioStatus.cs" />
