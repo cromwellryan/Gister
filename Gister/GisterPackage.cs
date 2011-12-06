@@ -115,12 +115,12 @@ namespace EchelonTouchInc.Gister
             return view.TextSnapshot.GetText();
         }
 
-        private static string GetSelectedText(IWpfTextView view)
+        private static string GetSelectedText(ITextView view)
         {
             return view.Selection.SelectedSpans[0].GetText();
         }
 
-        private static bool SelectionIsAvailable(IWpfTextView view)
+        private static bool SelectionIsAvailable(ITextView view)
         {
             if (view == null) throw new ArgumentNullException("view");
 
