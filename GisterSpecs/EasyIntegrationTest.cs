@@ -7,7 +7,7 @@ namespace GisterSpecs
     public class EasyIntegrationTest
     {
         [Test]
-        [Ignore]
+        [Ignore("This is for playing.")]
         public void DoWop()
         {
             new GistApi { GitHubSender = new HttpGitHubSender() }.Create("wopwop.js", "dowop", "get",
