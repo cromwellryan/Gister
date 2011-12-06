@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 namespace EchelonTouchInc.Gister.Api
 {
-    public class UpdateVisualStudioStatus : UpdatesStatus
+    public class UpdateVisualStudioStatus
     {
         private readonly IOleComponentUIManager uiManager;
 

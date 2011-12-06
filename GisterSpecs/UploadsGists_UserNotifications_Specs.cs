@@ -82,7 +82,7 @@ namespace GisterSpecs
         }
     }
 
-    public class MockUpdatesStatus : UpdatesStatus
+    public class MockUpdatesStatus
     {
         public List<string> Notifications = new List<string>();
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace EchelonTouchInc.Gister.Api
 {
@@ -38,8 +37,6 @@ namespace EchelonTouchInc.Gister.Api
         {
             PresentStatusUpdate(message);
         }
-
-        public UpdatesStatus UpdatesStatus { get; set; }
 
         public GitHubSender GitHubSender { get; set; } 
         public Action<string> UrlAvailable { get; set; }
