@@ -65,9 +65,9 @@
     <Compile Include="EasyIntegrationTest.cs" />
     <Compile Include="AppliesCachedGitHubCredentials_Specs.cs" />
     <Compile Include="UploadsGists_Specs.cs" />
-    <Compile Include="UploadsGists_UserNotifications_Specs.cs" />
     <Compile Include="CleansGistContent_Specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MockGitHubSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

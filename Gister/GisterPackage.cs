@@ -89,19 +89,22 @@ namespace EchelonTouchInc.Gister
             var content = GetCurrentContentForGist(view);
             var updateStatus = new UpdateVisualStudioStatus((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)));
 
-            var gistApi = new UploadsGists
+            var uploadsGists = new UploadsGists
             {
                 GitHubSender = new HttpGitHubSender(),
-                PresentStatusUpdate = updateStatus.NotifyUserThat,
                 UrlAvailable = url => Clipboard.SetText(url)
             };
 
             var appliesCredentials = new AppliesAppropriateCredentials(new AppliesCachedGitHubCredentials(),
                                                                        new AppliesUserEnteredCredentials());
 
-            appliesCredentials.Apply(gistApi);
+            appliesCredentials.Apply(uploadsGists);
 
-            gistApi.Upload(fileName, content);
+            uploadsGists.CredentialsAreBad = () => updateStatus.NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
+            uploadsGists.Complete = () => updateStatus.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+
+            updateStatus.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
+            uploadsGists.Upload(fileName, content);
         }
 
         private string GetCurrentFilenameForGist()
