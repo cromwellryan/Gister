@@ -4,7 +4,7 @@ using EchelonTouchInc.Gister.Api;
 
 namespace EchelonTouchInc.Gister
 {
-    public class AppliesCachedGitHubCredentials
+    public class AppliesCachedGitHubCredentials : AppliesCredentials
     {
         public string TestPathToCredentials { get; set; }
 
@@ -28,7 +28,7 @@ namespace EchelonTouchInc.Gister
             return IsTestPathProvided() ?  TestPathToCredentials : VsProfileCredentials();
         }
 
-        private string VsProfileCredentials()
+        private static string VsProfileCredentials()
         {
             var profilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
@@ -43,6 +43,11 @@ namespace EchelonTouchInc.Gister
         private GitHubCredentials DecodeGitHubCredentialsFromFile(string[] lines)
         {
             return new GitHubCredentials(lines[0], lines[1]);
+        }
+
+        public bool IsAvailable()
+        {
+            return File.Exists(VsProfileCredentials());
         }
     }
 }

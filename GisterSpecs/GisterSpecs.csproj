@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppliesPromptedCredentials_Specs.cs" />
     <Compile Include="CreatesGistMessages_Specs.cs" />
     <Compile Include="EasyIntegrationTest.cs" />
     <Compile Include="AppliesCachedGitHubCredentials_Specs.cs" />

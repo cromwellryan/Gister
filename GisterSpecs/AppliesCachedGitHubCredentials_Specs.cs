@@ -36,6 +36,17 @@ namespace GisterSpecs
 
             receiver.Password.Should().Equal("secret");
         }
+
+        [Test]
+        public void IsNotAvailableIfFileNotFound()
+        {
+            var cache = new AppliesCachedGitHubCredentials();
+
+            cache.TestPathToCredentials = Path.GetTempFileName();
+            File.Delete(cache.TestPathToCredentials);
+
+            cache.IsAvailable().Should().Be.False();
+        }
     }
 
     public class MockCanReceiveCredentials : CanReceiveCredentials
