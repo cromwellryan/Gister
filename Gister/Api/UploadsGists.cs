@@ -6,6 +6,8 @@ namespace EchelonTouchInc.Gister.Api
     {
         private readonly Action<string> NoOp = s => { };
 
+        private GitHubCredentials gitHubCredentials;
+
         public UploadsGists()
         {
             GitHubSender = new NoWhereGitHubSender();
@@ -15,6 +17,8 @@ namespace EchelonTouchInc.Gister.Api
 
         public void Create(GitHubCredentials gitHubCredentials, string fileName, string content)
         {
+            this.gitHubCredentials = gitHubCredentials;
+            
             NotifyStatusChanged(string.Format("Creating gist for {0}", fileName));
 
             string gistUrl;

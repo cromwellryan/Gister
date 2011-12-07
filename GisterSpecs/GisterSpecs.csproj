@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="CreatesGistMessages_Specs.cs" />
     <Compile Include="EasyIntegrationTest.cs" />
-    <Compile Include="RetrievesGitHubCredentials_Specs.cs" />
+    <Compile Include="AppliesCachedGitHubCredentials_Specs.cs" />
     <Compile Include="UploadsGists_Specs.cs" />
     <Compile Include="UploadsGists_UserNotifications_Specs.cs" />
     <Compile Include="CleansGistContent_Specs.cs" />

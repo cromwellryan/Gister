@@ -4,7 +4,7 @@ using EchelonTouchInc.Gister.Api;
 
 namespace EchelonTouchInc.Gister
 {
-    public class RetrievesGitHubCredentials
+    public class AppliesCachedGitHubCredentials
     {
         public string TestPathToCredentials { get; set; }
 
@@ -36,6 +36,13 @@ namespace EchelonTouchInc.Gister
         private GitHubCredentials DecodeGitHubCredentialsFromFile(string[] lines)
         {
             return new GitHubCredentials(lines[0], lines[1]);
+        }
+
+        public void Apply(CanReceiveCredentials receiver)
+        {
+            var credentials = GetCredentials();
+
+            receiver.UseCredentials(credentials);
         }
     }
 }
