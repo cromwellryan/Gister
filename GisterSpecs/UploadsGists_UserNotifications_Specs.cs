@@ -16,7 +16,7 @@ namespace GisterSpecs
             var statusUpdates = new TracksStatusUpdates();
             var gistApi = new UploadsGists { PresentStatusUpdate = statusUpdates.NotifyUserThat };
 
-            gistApi.Create(new GitHubCredentials("get", "real"), "file1.cs", "Dum diddy, dum diddy");
+            gistApi.Create("file1.cs", "Dum diddy, dum diddy");
 
             // Really annoying that ShouldFluent Contains wasn't working...
             statusUpdates.Notifications.FirstOrDefault(x => x == "Creating gist for file1.cs").Should().Not.Be.Null();
@@ -28,7 +28,7 @@ namespace GisterSpecs
             var statusUpdates = new TracksStatusUpdates();
             var gistApi = new UploadsGists { PresentStatusUpdate = statusUpdates.NotifyUserThat };
 
-            gistApi.Create(new GitHubCredentials("get", "real"), "file2.cs", "Zippity do dah, zippity ah");
+            gistApi.Create("file2.cs", "Zippity do dah, zippity ah");
 
             statusUpdates.Notifications.FirstOrDefault(x => x == "Gist created successfully.  Url placed in the clipboard.")
                 .Should().Not.Be.Null();
@@ -47,7 +47,7 @@ namespace GisterSpecs
                 GitHubSender = sender
             };
 
-            gistApi.Create(new GitHubCredentials("me", "nahnah"), "file3.cs", "Out of fun kids songs.");
+            gistApi.Create("file3.cs", "Out of fun kids songs.");
 
             statusUpdates.LastUpdate.Should().Equal("Gist not created.  Your password is terrible.");
         }
@@ -61,8 +61,15 @@ namespace GisterSpecs
 
         public string ResultingUrl { get; set; }
 
+        public string LastPasswordUsed { get; private set; }
+
+        public string LastUsernameUsed { get; private set; }
+
         public string SendGist(string fileName, string content, string githubusername, string githubpassword)
         {
+            LastUsernameUsed = githubusername;
+            LastPasswordUsed = githubpassword;
+
             if (ShouldThrow())
                 throw new ApplicationException(failureStatusDescription);
 

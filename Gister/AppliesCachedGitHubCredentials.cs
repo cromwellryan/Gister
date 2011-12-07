@@ -8,7 +8,14 @@ namespace EchelonTouchInc.Gister
     {
         public string TestPathToCredentials { get; set; }
 
-        public GitHubCredentials GetCredentials()
+        public void Apply(CanReceiveCredentials receiver)
+        {
+            var credentials = GetCredentials();
+
+            receiver.UseCredentials(credentials);
+        }
+
+        private GitHubCredentials GetCredentials()
         {
             var pathToCredentialsFile = GetPathToCredentialsFile();
             var lines = File.ReadAllLines(pathToCredentialsFile);
@@ -36,13 +43,6 @@ namespace EchelonTouchInc.Gister
         private GitHubCredentials DecodeGitHubCredentialsFromFile(string[] lines)
         {
             return new GitHubCredentials(lines[0], lines[1]);
-        }
-
-        public void Apply(CanReceiveCredentials receiver)
-        {
-            var credentials = GetCredentials();
-
-            receiver.UseCredentials(credentials);
         }
     }
 }

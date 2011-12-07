@@ -2,11 +2,11 @@
 
 namespace EchelonTouchInc.Gister.Api
 {
-    public class UploadsGists
+    public class UploadsGists : CanReceiveCredentials
     {
         private readonly Action<string> NoOp = s => { };
 
-        private GitHubCredentials gitHubCredentials;
+        private GitHubCredentials gitHubCredentials = new AnonymousGitHubCredentials();
 
         public UploadsGists()
         {
@@ -15,17 +15,16 @@ namespace EchelonTouchInc.Gister.Api
             PresentStatusUpdate = NoOp;
         }
 
-        public void Create(GitHubCredentials gitHubCredentials, string fileName, string content)
+        public void Create(string fileName, string content)
         {
-            this.gitHubCredentials = gitHubCredentials;
-            
+
             NotifyStatusChanged(string.Format("Creating gist for {0}", fileName));
 
             string gistUrl;
 
             try
             {
-                gistUrl = GitHubSender.SendGist(fileName, content, gitHubCredentials.Username, gitHubCredentials.Password);
+                gistUrl = GitHubSender.SendGist(fileName, content, this.gitHubCredentials.Username, this.gitHubCredentials.Password);
             }
             catch (ApplicationException ex)
             {
@@ -37,14 +36,26 @@ namespace EchelonTouchInc.Gister.Api
             NotifyStatusChanged("Gist created successfully.  Url placed in the clipboard.");
         }
 
+        public void UseCredentials(GitHubCredentials credentials)
+        {
+            gitHubCredentials = credentials;
+        }
+
         private void NotifyStatusChanged(string message)
         {
             PresentStatusUpdate(message);
         }
 
-        public GitHubSender GitHubSender { get; set; } 
+        public GitHubSender GitHubSender { get; set; }
+
         public Action<string> UrlAvailable { get; set; }
 
         public Action<string> PresentStatusUpdate { get; set; }
+
+        private class AnonymousGitHubCredentials : GitHubCredentials
+        {
+            public AnonymousGitHubCredentials() : base("", "") { }
+        }
     }
+
 }

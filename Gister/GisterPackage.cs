@@ -95,9 +95,9 @@ namespace EchelonTouchInc.Gister
                 UrlAvailable = url => Clipboard.SetText(url)
             };
 
-            var credentials = new AppliesCachedGitHubCredentials().GetCredentials();
+            new AppliesCachedGitHubCredentials().Apply(gistApi);
 
-            gistApi.Create(new GitHubCredentials(credentials.Username, credentials.Password), fileName, content);
+            gistApi.Create(fileName, content);
         }
 
         private string GetCurrentFilenameForGist()
