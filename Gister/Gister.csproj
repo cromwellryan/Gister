@@ -136,7 +136,6 @@
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
-    <Compile Include="Api\UpdateVisualStudioStatus.cs" />
     <Compile Include="AppliesAppropriateCredentials.cs" />
     <Compile Include="AppliesCredentials.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />

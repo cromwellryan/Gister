@@ -88,12 +88,13 @@ namespace EchelonTouchInc.Gister
 
             var fileName = GetCurrentFilenameForGist();
             var content = GetCurrentContentForGist(view);
-            var updateStatus = new UpdateVisualStudioStatus((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)));
 
             var uploadsGists = new UploadsGists
             {
                 GitHubSender = new HttpGitHubSender(),
-                UrlAvailable = url => Clipboard.SetText(url)
+                UrlAvailable = url => Clipboard.SetText(url),
+                CredentialsAreBad = () => NotifyUserThat("Gist not created.  Invalid GitHub Credentials"),
+                Uploaded = () => NotifyUserThat("Gist created successfully.  Url placed in the clipboard.")
             };
 
             var appliesCredentials = new AppliesAppropriateCredentials(new AppliesCachedGitHubCredentials(),
@@ -101,11 +102,19 @@ namespace EchelonTouchInc.Gister
 
             appliesCredentials.Apply(uploadsGists);
 
-            uploadsGists.CredentialsAreBad = () => updateStatus.NotifyUserThat( "Gist not created.  Invalid GitHub Credentials");
-            uploadsGists.Uploaded = () => updateStatus.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
-
-            updateStatus.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
+            NotifyUserThat("Creating gist for {0}", fileName);
             uploadsGists.Upload(fileName, content);
+        }
+
+        private void NotifyUserThat(string format, params object[] args)
+        {
+            var uiManager = ((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)));
+
+            if (uiManager == null) return;
+
+            var message = string.Format(format, args);
+
+            uiManager.SetStatus(message, UInt32.Parse("0"));
         }
 
         private string GetCurrentFilenameForGist()

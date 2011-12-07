@@ -29,7 +29,6 @@ namespace EchelonTouchInc.Gister.Api
                 return;
             }
 
-
             Uploaded();
             UrlAvailable(gistUrl);
         }
