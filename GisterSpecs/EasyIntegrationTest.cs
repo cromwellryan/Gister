@@ -10,7 +10,7 @@ namespace GisterSpecs
         [Ignore("This is for playing.")]
         public void DoWop()
         {
-            new UploadsGists { GitHubSender = new HttpGitHubSender() }.Create("wopwop.js", "dowop");
+            new UploadsGists { GitHubSender = new HttpGitHubSender() }.Upload("wopwop.js", "dowop");
         }
     }
 }

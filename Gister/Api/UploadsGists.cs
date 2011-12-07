@@ -15,7 +15,7 @@ namespace EchelonTouchInc.Gister.Api
             PresentStatusUpdate = NoOp;
         }
 
-        public void Create(string fileName, string content)
+        public void Upload(string fileName, string content)
         {
 
             NotifyStatusChanged(string.Format("Creating gist for {0}", fileName));

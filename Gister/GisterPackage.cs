@@ -97,7 +97,7 @@ namespace EchelonTouchInc.Gister
 
             new AppliesCachedGitHubCredentials().Apply(gistApi);
 
-            gistApi.Create(fileName, content);
+            gistApi.Upload(fileName, content);
         }
 
         private string GetCurrentFilenameForGist()
