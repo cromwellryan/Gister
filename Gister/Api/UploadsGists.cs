@@ -12,7 +12,7 @@ namespace EchelonTouchInc.Gister.Api
         {
             GitHubSender = new NoWhereGitHubSender();
             UrlAvailable = s => { };
-            Complete = () => { };
+            Uploaded = () => { };
             CredentialsAreBad = () => { };
         }
 
@@ -34,7 +34,7 @@ namespace EchelonTouchInc.Gister.Api
             }
 
 
-            Complete();
+            Uploaded();
             UrlAvailable(gistUrl);
         }
 
@@ -47,7 +47,7 @@ namespace EchelonTouchInc.Gister.Api
 
         public Action<string> UrlAvailable { get; set; }
 
-        public Action Complete { get; set; }
+        public Action Uploaded { get; set; }
 
         public Action CredentialsAreBad { get; set; }
 

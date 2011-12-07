@@ -54,7 +54,7 @@ namespace GisterSpecs
 
             var uploads = new UploadsGists();
 
-            uploads.Complete = () => wasSuccessful = true;
+            uploads.Uploaded = () => wasSuccessful = true;
 
             uploads.Upload("asdf", "qwer");
 

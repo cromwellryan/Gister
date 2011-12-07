@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
@@ -100,8 +101,8 @@ namespace EchelonTouchInc.Gister
 
             appliesCredentials.Apply(uploadsGists);
 
-            uploadsGists.CredentialsAreBad = () => updateStatus.NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
-            uploadsGists.Complete = () => updateStatus.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+            uploadsGists.CredentialsAreBad = () => updateStatus.NotifyUserThat( "Gist not created.  Invalid GitHub Credentials");
+            uploadsGists.Uploaded = () => updateStatus.NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
 
             updateStatus.NotifyUserThat(string.Format("Creating gist for {0}", fileName));
             uploadsGists.Upload(fileName, content);
