@@ -11,9 +11,10 @@ namespace EchelonTouchInc.Gister.Api
         public UploadsGists()
         {
             GitHubSender = new NoWhereGitHubSender();
+            PresentStatusUpdate = NoOp;
             UrlAvailable = NoOp;
             Complete = ()=> { };
-            PresentStatusUpdate = NoOp;
+            CredentialsAreBad = () => { };
         }
 
         public void Upload(string fileName, string content)
@@ -27,9 +28,10 @@ namespace EchelonTouchInc.Gister.Api
             {
                 gistUrl = GitHubSender.SendGist(fileName, content, this.gitHubCredentials.Username, this.gitHubCredentials.Password);
             }
-            catch (ApplicationException ex)
+            catch (GitHubUnauthorizedException ex)
             {
                 NotifyStatusChanged(string.Format("Gist not created.  {0}", ex.Message));
+                CredentialsAreBad();
                 return;
             }
 
@@ -55,6 +57,8 @@ namespace EchelonTouchInc.Gister.Api
         public Action<string> PresentStatusUpdate { get; set; }
 
         public Action Complete { get; set; }
+
+        public Action CredentialsAreBad { get; set; }
 
         private class AnonymousGitHubCredentials : GitHubCredentials
         {

@@ -24,7 +24,7 @@ namespace GisterSpecs
             string actualUrl = null;
 
             var gitHubSender = new MockGitHubSender() { ResultingUrl = "http://gist.github.com/123" };
-            var gistApi = new UploadsGists { GitHubSender = gitHubSender, UrlAvailable = url=>actualUrl = url };
+            var gistApi = new UploadsGists { GitHubSender = gitHubSender, UrlAvailable = url => actualUrl = url };
 
             gistApi.Upload("file3.cs", "My oh my");
 
@@ -37,7 +37,7 @@ namespace GisterSpecs
         {
             var gitHubSender = new MockGitHubSender();
 
-            var uploads = new UploadsGists{GitHubSender =gitHubSender};
+            var uploads = new UploadsGists { GitHubSender = gitHubSender };
 
             uploads.UseCredentials(new GitHubCredentials("something", "secret"));
 
@@ -61,5 +61,21 @@ namespace GisterSpecs
             wasSuccessful.Should().Be.True();
         }
 
+        [Test]
+        public void WillAllowUsToGetInvolvedWhenCredentialsAreBad()
+        {
+            var sender = new MockGitHubSender();
+            sender.FailWith("Blah");
+
+            var uploads = new UploadsGists();
+            uploads.GitHubSender = sender;
+
+            var didTellUs = false;
+            uploads.CredentialsAreBad = () => didTellUs = true;
+
+            uploads.Upload("asdf","asdF");
+
+            didTellUs.Should().Be.True();
+        }
     }
 }

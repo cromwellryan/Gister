@@ -26,7 +26,7 @@ namespace EchelonTouchInc.Gister.Api
                 .Execute();
 
             if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
-                throw new ApplicationException(response.Response.HttpWebResponse.StatusDescription);
+                throw new GitHubUnauthorizedException(response.Response.HttpWebResponse.StatusDescription);
 
             return PeelOutGistHtmlUrl(response);
         }
@@ -40,5 +40,10 @@ namespace EchelonTouchInc.Gister.Api
 
             return (string) gist.html_url;
         }
+    }
+
+    public class GitHubUnauthorizedException : Exception
+    {
+        public GitHubUnauthorizedException(string statusDescription) : base(statusDescription) {}
     }
 }

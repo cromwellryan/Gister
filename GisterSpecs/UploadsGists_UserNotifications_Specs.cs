@@ -71,7 +71,7 @@ namespace GisterSpecs
             LastPasswordUsed = githubpassword;
 
             if (ShouldThrow())
-                throw new ApplicationException(failureStatusDescription);
+                throw new GitHubUnauthorizedException(failureStatusDescription);
 
             SentAGist = true;
 
