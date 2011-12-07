@@ -4,7 +4,6 @@ namespace EchelonTouchInc.Gister.Api
 {
     public class UploadsGists : CanReceiveCredentials
     {
-        private readonly Action<string> NoOp = s => { };
 
         private GitHubCredentials gitHubCredentials = new AnonymousGitHubCredentials();
 
@@ -18,8 +17,6 @@ namespace EchelonTouchInc.Gister.Api
 
         public void Upload(string fileName, string content)
         {
-
-
             string gistUrl;
 
             try
@@ -28,7 +25,6 @@ namespace EchelonTouchInc.Gister.Api
             }
             catch (GitHubUnauthorizedException ex)
             {
-
                 CredentialsAreBad();
                 return;
             }

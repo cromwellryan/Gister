@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using EchelonTouchInc.Gister.FluentHttp;
 using FluentHttp;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace EchelonTouchInc.Gister.Api
