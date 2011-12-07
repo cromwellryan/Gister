@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using EchelonTouchInc.Gister.Api;
+using EchelonTouchInc.Gister.Api.Credentials;
 using EnvDTE;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -95,7 +96,10 @@ namespace EchelonTouchInc.Gister
                 UrlAvailable = url => Clipboard.SetText(url)
             };
 
-            new AppliesCachedGitHubCredentials().Apply(gistApi);
+            var appliesCredentials = new AppliesAppropriateCredentials(new AppliesCachedGitHubCredentials(),
+                                                                       new AppliesUserEnteredCredentials());
+
+            appliesCredentials.Apply(gistApi);
 
             gistApi.Upload(fileName, content);
         }

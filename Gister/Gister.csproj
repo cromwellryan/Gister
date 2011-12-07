@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EchelonTouchInc.Gister</RootNamespace>
     <AssemblyName>Gister</AssemblyName>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -57,13 +57,17 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="EnvDTE">
@@ -123,6 +127,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CanReceiveCredentials.cs" />
+    <Compile Include="Api\Credentials\AppliesUserEnteredCredentials.cs" />
+    <Compile Include="Api\Credentials\CredentialsPrompt.cs" />
     <Compile Include="Api\UploadsGists.cs" />
     <Compile Include="Api\CleansGistContent.cs" />
     <Compile Include="Api\CreatesGistMessages.cs" />
@@ -136,6 +142,9 @@
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="GisterPackage.cs" />
     <Compile Include="AppliesCachedGitHubCredentials.cs" />
+    <Compile Include="GitHubCredentialsPrompt.xaml.cs">
+      <DependentUpon>GitHubCredentialsPrompt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Guids.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -175,7 +184,14 @@
     <None Include="Resources\logo_gist.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\logo_gist.png" />
     <Content Include="Resources\Package.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GitHubCredentialsPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
