@@ -28,7 +28,7 @@ namespace EchelonTouchInc.Gister
         private void OnOkClick(object sender, RoutedEventArgs e)
         {
             Username = txtUsername.Text;
-            Password = txtPassword.Text;
+            Password = txtPassword.Password;
 
             DialogResult = true;
 

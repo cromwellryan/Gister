@@ -4,6 +4,7 @@ using Should.Fluent;
 
 namespace GisterSpecs
 {
+    [TestFixture]
     public class UploadsGists_Specs
     {
         [Test]
@@ -46,6 +47,19 @@ namespace GisterSpecs
             gitHubSender.LastPasswordUsed.Should().Equal("secret");
         }
 
+        [Test]
+        public void CompleteOccursAtTheEnd()
+        {
+            var wasSuccessful = false;
+
+            var uploads = new UploadsGists();
+
+            uploads.Complete = () => wasSuccessful = true;
+
+            uploads.Upload("asdf", "qwer");
+
+            wasSuccessful.Should().Be.True();
+        }
 
     }
 }

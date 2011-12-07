@@ -63,11 +63,11 @@ namespace GisterSpecs
             Password = password;
         }
 
-        public string Password { get; private set; }
         public void Prompt()
         {
         }
 
         public string Username { get; private set; }
+        public string Password { get; private set; }
     }
 }

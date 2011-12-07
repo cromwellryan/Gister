@@ -12,6 +12,7 @@ namespace EchelonTouchInc.Gister.Api
         {
             GitHubSender = new NoWhereGitHubSender();
             UrlAvailable = NoOp;
+            Complete = ()=> { };
             PresentStatusUpdate = NoOp;
         }
 
@@ -32,6 +33,7 @@ namespace EchelonTouchInc.Gister.Api
                 return;
             }
 
+            Complete();
             UrlAvailable(gistUrl);
             NotifyStatusChanged("Gist created successfully.  Url placed in the clipboard.");
         }
@@ -51,6 +53,8 @@ namespace EchelonTouchInc.Gister.Api
         public Action<string> UrlAvailable { get; set; }
 
         public Action<string> PresentStatusUpdate { get; set; }
+
+        public Action Complete { get; set; }
 
         private class AnonymousGitHubCredentials : GitHubCredentials
         {
