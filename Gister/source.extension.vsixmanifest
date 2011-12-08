@@ -6,7 +6,10 @@
     <Version>1.0.0.0</Version>
     <Description xml:space="preserve">Gister lets you create Github Gists within Visual Studio.</Description>
     <Locale>1033</Locale>
-    <Icon>logo_gist.png</Icon>
+    <MoreInfoUrl>https://github.com/cromwellryan/Gister</MoreInfoUrl>
+    <License>license.txt</License>
+    <Icon>resources\logo_gist.png</Icon>
+    <PreviewImage>images\credsbackround.png</PreviewImage>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">

@@ -91,6 +91,8 @@ namespace EchelonTouchInc.Gister
 
             var credentials = GetGitHubCredentials();
 
+            if (credentials == GitHubCredentials.Anonymous) return;
+
             var uploadsGists = new UploadsGists
                                    {
                                        GitHubSender = new HttpGitHubSender(),
