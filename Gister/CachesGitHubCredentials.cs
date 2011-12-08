@@ -13,7 +13,9 @@ namespace EchelonTouchInc.Gister
 
         public bool IsAvailable()
         {
-            return File.Exists(VsProfileCredentials());
+            var path = string.IsNullOrEmpty(TestPathToCredentials)? VsProfileCredentials() : TestPathToCredentials;
+
+            return File.Exists(path);
         }
 
         public GitHubCredentials Retrieve()
@@ -36,12 +38,12 @@ namespace EchelonTouchInc.Gister
 
             PurgeAnyCache();
 
-            File.WriteAllLines(path, new[] {credentials.Username, credentials.Password});
+            File.WriteAllLines(path, new[] { credentials.Username, credentials.Password });
         }
 
         private string GetPathToCredentialsFile()
         {
-            return IsTestPathProvided() ?  TestPathToCredentials : VsProfileCredentials();
+            return IsTestPathProvided() ? TestPathToCredentials : VsProfileCredentials();
         }
 
         private static string VsProfileCredentials()
