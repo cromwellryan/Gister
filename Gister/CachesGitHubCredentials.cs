@@ -7,7 +7,7 @@ namespace EchelonTouchInc.Gister
 {
     public class CachesGitHubCredentials : RetrievesCredentials
     {
-        private const string CredentialsFileName = ".githubcreds";
+        private const string CredentialsFileName = ".githubcred";
 
         public CachesGitHubCredentials()
         {
