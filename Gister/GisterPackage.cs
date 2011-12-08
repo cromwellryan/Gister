@@ -83,10 +83,10 @@ namespace EchelonTouchInc.Gister
         {
             var view = GetActiveTextView();
 
-            if (view == null) return;
+            if (NotReadyRockAndRoll(view)) return;
 
-            var fileName = GetCurrentFilenameForGist();
             var content = GetCurrentContentForGist(view);
+            var fileName = GetCurrentFilenameForGist();
 
             var uploadsGists = new UploadsGists
             {
@@ -105,6 +105,12 @@ namespace EchelonTouchInc.Gister
             uploadsGists.Upload(fileName, content);
         }
 
+        private bool NotReadyRockAndRoll(IWpfTextView view)
+        {
+            return view == null ||
+                   Dte.ActiveDocument == null;
+        }
+
         private void NotifyUserThat(string format, params object[] args)
         {
             var uiManager = ((IOleComponentUIManager)GetService(typeof(SOleComponentUIManager)));
@@ -118,12 +124,15 @@ namespace EchelonTouchInc.Gister
 
         private string GetCurrentFilenameForGist()
         {
-            var dte = (DTE)GetService(typeof(DTE));
-
-            return dte.ActiveWindow.Document.Name;
+            return Dte.ActiveDocument.Name;
         }
 
-        private static string GetCurrentContentForGist(IWpfTextView view)
+        private DTE Dte
+        {
+            get { return (DTE)GetService(typeof(DTE)); }
+        }
+
+        private static string GetCurrentContentForGist(ITextView view)
         {
             if (SelectionIsAvailable(view))
                 return GetSelectedText(view);
