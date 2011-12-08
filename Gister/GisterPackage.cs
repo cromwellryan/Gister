@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using EchelonTouchInc.Gister.Api;
 using EnvDTE;
@@ -14,6 +12,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Utilities;
 
 namespace EchelonTouchInc.Gister
 {
@@ -130,7 +129,7 @@ namespace EchelonTouchInc.Gister
             return firstAppropriate.Retrieve();
         }
 
-        private bool NotReadyRockAndRoll(IWpfTextView view)
+        private bool NotReadyRockAndRoll(IPropertyOwner view)
         {
             return view == null ||
                    Dte.ActiveDocument == null;
