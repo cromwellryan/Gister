@@ -1,6 +1,7 @@
 using System;
+using EchelonTouchInc.Gister.Api;
 
-namespace EchelonTouchInc.Gister.Api.Credentials
+namespace EchelonTouchInc.Gister
 {
     public class AppliesUserEnteredCredentials : AppliesCredentials
     {

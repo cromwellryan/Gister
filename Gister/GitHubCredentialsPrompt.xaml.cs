@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
-using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
 {

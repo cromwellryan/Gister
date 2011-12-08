@@ -1,6 +1,4 @@
-using System.Windows.Forms;
-
-namespace EchelonTouchInc.Gister.Api.Credentials
+namespace EchelonTouchInc.Gister
 {
     public interface CredentialsPrompt
     {

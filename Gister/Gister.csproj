@@ -127,8 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CanReceiveCredentials.cs" />
-    <Compile Include="Api\Credentials\AppliesUserEnteredCredentials.cs" />
-    <Compile Include="Api\Credentials\CredentialsPrompt.cs" />
     <Compile Include="Api\UploadsGists.cs" />
     <Compile Include="Api\CleansGistContent.cs" />
     <Compile Include="Api\CreatesGistMessages.cs" />
@@ -138,6 +136,8 @@
     <Compile Include="Api\NoWhereGitHubSender.cs" />
     <Compile Include="AppliesAppropriateCredentials.cs" />
     <Compile Include="AppliesCredentials.cs" />
+    <Compile Include="AppliesUserEnteredCredentials.cs" />
+    <Compile Include="CredentialsPrompt.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="GisterPackage.cs" />
     <Compile Include="AppliesCachedGitHubCredentials.cs" />
@@ -191,6 +191,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Api\Credentials\" />
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using EchelonTouchInc.Gister.Api.Credentials;
+using EchelonTouchInc.Gister;
 using NUnit.Framework;
 using Should.Fluent;
 
