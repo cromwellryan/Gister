@@ -127,11 +127,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\CanReceiveCredentials.cs" />
+    <Compile Include="Api\Credentials\AnonymousGitHubCredentialsForFluentHttp.cs" />
+    <Compile Include="Api\Credentials\AppliesGitHubCredentialsToFluentHttpRequest.cs" />
+    <Compile Include="Api\Credentials\CredentialVisitor.cs" />
+    <Compile Include="Api\Credentials\GitHubCredentials.cs" />
+    <Compile Include="Api\Credentials\GitHubUserCredentialsForFluentHttp.cs" />
     <Compile Include="Api\UploadsGists.cs" />
     <Compile Include="Api\CleansGistContent.cs" />
     <Compile Include="Api\CreatesGistMessages.cs" />
-    <Compile Include="Api\GitHubCredentials.cs" />
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
@@ -200,9 +203,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Api\Credentials\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>

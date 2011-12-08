@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using EchelonTouchInc.Gister;
 using EchelonTouchInc.Gister.Api;
+using EchelonTouchInc.Gister.Api.Credentials;
 using NUnit.Framework;
 using Should.Fluent;
 
@@ -80,7 +81,8 @@ namespace GisterSpecs
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.WriteAllLines(cache.TestPathToCredentials, new[] { @"me", @"secret" });
 
-             cache.Retrieve().Should().Be.OfType<GitHubUserCredentials>();
+            cache.Retrieve().Should().Be.OfType<GitHubUserCredentials>();
         }
+
     }
 }

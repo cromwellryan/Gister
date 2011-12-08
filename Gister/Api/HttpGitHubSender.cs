@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using EchelonTouchInc.Gister.FluentHttp;
+using EchelonTouchInc.Gister.Api.Credentials;
 using FluentHttp;
 using Newtonsoft.Json.Linq;
 
@@ -16,24 +14,27 @@ namespace EchelonTouchInc.Gister.Api
         {
             var gistAsJson = new CreatesGistMessages().CreateMessage(fileName, content);
 
-            var request = new FluentHttpRequest()
-                .BaseUrl("https://api.github.com")
-                .ResourcePath("/gists")
-                .Method("POST")
-                .Headers(h => h.Add("User-Agent", "Gister"))
-                .Headers(h => h.Add("Content-Type", "application/json"))
-                .Body(x => x.Append(gistAsJson))
-                .OnResponseHeadersReceived((o, e) => e.SaveResponseIn(new MemoryStream()));
+            using (var stream = new MemoryStream())
+            {
+                var request = new FluentHttpRequest()
+                    .BaseUrl("https://api.github.com")
+                    .ResourcePath("/gists")
+                    .Method("POST")
+                    .Headers(h => h.Add("User-Agent", "Gister"))
+                    .Headers(h => h.Add("Content-Type", "application/json"))
+                    .Body(x => x.Append(gistAsJson))
+                    .OnResponseHeadersReceived((o, e) => e.SaveResponseIn(stream));
 
-            AppliesGitHubCredentialsToFluentHttpRequest.ApplyCredentials(credentials, request);
+                AppliesGitHubCredentialsToFluentHttpRequest.ApplyCredentials(credentials, request);
 
-            var response = request
-                .Execute();
+                var response = request
+                    .Execute();
 
-            if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
-                throw new GitHubUnauthorizedException(response.Response.HttpWebResponse.StatusDescription);
+                if (response.Response.HttpWebResponse.StatusCode != HttpStatusCode.Created)
+                    throw new GitHubUnauthorizedException(response.Response.HttpWebResponse.StatusDescription);
 
-            return PeelOutGistHtmlUrl(response);
+                return PeelOutGistHtmlUrl(response);
+            }
         }
 
 
@@ -48,46 +49,7 @@ namespace EchelonTouchInc.Gister.Api
         }
     }
 
-    public class AppliesGitHubCredentialsToFluentHttpRequest
-    {
-        public static void ApplyCredentials(GitHubCredentials credentials, FluentHttpRequest request)
-        {
-            var map = new Dictionary<Type, CredentialVisitor>()
-                          {
-                              {typeof (AnonymousGitHubCredentials), new AnonymousGitHubCredentialsForFluentHttp()},
-                              {typeof (GitHubUserCredentials), new GitHubUserCredentialsForFluentHttp()}
-                          };
-
-            var credentialApplier = (from item in map
-                                     where item.Key == credentials.GetType()
-                                     select item.Value).First();
-
-            credentialApplier.Apply(request, credentials);
-        }
-    }
-
-    public class GitHubUserCredentialsForFluentHttp : CredentialVisitor
-    {
-        public void Apply(FluentHttpRequest request, GitHubCredentials credentials)
-        {
-            var userCreds = (GitHubUserCredentials)credentials;
-
-            request.AuthenticateUsing(new HttpBasicAuthenticator(userCreds.Username, userCreds.Password));
-        }
-    }
-
-    public interface CredentialVisitor
-    {
-        void Apply(FluentHttpRequest request, GitHubCredentials credentials);
-    }
-
-    public class AnonymousGitHubCredentialsForFluentHttp : CredentialVisitor
-    {
-        public void Apply(FluentHttpRequest request, GitHubCredentials credentials)
-        {
-        }
-    }
-
+    [Serializable]
     public class GitHubUnauthorizedException : Exception
     {
         public GitHubUnauthorizedException(string statusDescription)

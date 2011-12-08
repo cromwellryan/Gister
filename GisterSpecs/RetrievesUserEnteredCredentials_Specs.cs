@@ -1,5 +1,6 @@
 ﻿using EchelonTouchInc.Gister;
 using EchelonTouchInc.Gister.Api;
+using EchelonTouchInc.Gister.Api.Credentials;
 using NUnit.Framework;
 using Should.Fluent;
 

@@ -1,7 +1,7 @@
 using System;
 using System.IO;
-using System.Security;
 using EchelonTouchInc.Gister.Api;
+using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
 {

@@ -1,8 +1,9 @@
 ﻿using System;
+using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister.Api
 {
-    public class UploadsGists : CanReceiveCredentials
+    public class UploadsGists 
     {
 
         private GitHubCredentials gitHubCredentials = GitHubCredentials.Anonymous;

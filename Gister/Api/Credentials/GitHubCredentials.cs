@@ -1,4 +1,4 @@
-namespace EchelonTouchInc.Gister.Api
+namespace EchelonTouchInc.Gister.Api.Credentials
 {
     public abstract class GitHubCredentials
     {

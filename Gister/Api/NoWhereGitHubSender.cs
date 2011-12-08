@@ -1,3 +1,5 @@
+using EchelonTouchInc.Gister.Api.Credentials;
+
 namespace EchelonTouchInc.Gister.Api
 {
     public class NoWhereGitHubSender : GitHubSender
