@@ -9,13 +9,15 @@ namespace EchelonTouchInc.Gister.Api
 {
     public class HttpGitHubSender : GitHubSender
     {
-        public string SendGist(string fileName, string content, string githubusername, string githubpassword)
-        {
-            var gistAsJson = new CreatesGistMessages().CreateMessage(fileName, content);
+        #region GitHubSender Members
 
-            var response = new FluentHttpRequest()
+        public string SendGist(string fileName, string content, GitHubCredentials credentials)
+        {
+            string gistAsJson = new CreatesGistMessages().CreateMessage(fileName, content);
+
+            FluentHttpAsyncResult response = new FluentHttpRequest()
                 .BaseUrl("https://api.github.com")
-                .AuthenticateUsing(new HttpBasicAuthenticator(githubusername, githubpassword))
+                .AuthenticateUsing(new HttpBasicAuthenticator(credentials.Username, credentials.Password))
                 .ResourcePath("/gists")
                 .Method("POST")
                 .Headers(h => h.Add("User-Agent", "Gister"))
@@ -30,10 +32,12 @@ namespace EchelonTouchInc.Gister.Api
             return PeelOutGistHtmlUrl(response);
         }
 
+        #endregion
+
         private static string PeelOutGistHtmlUrl(FluentHttpAsyncResult response)
         {
             response.Response.SaveStream.Seek(0, SeekOrigin.Begin);
-            var gistJson = FluentHttpRequest.ToString(response.Response.SaveStream);
+            string gistJson = FluentHttpRequest.ToString(response.Response.SaveStream);
 
             dynamic gist = JObject.Parse(gistJson);
 
@@ -43,6 +47,8 @@ namespace EchelonTouchInc.Gister.Api
 
     public class GitHubUnauthorizedException : Exception
     {
-        public GitHubUnauthorizedException(string statusDescription) : base(statusDescription) {}
+        public GitHubUnauthorizedException(string statusDescription) : base(statusDescription)
+        {
+        }
     }
 }

@@ -39,10 +39,12 @@ namespace GisterSpecs
 
             var uploads = new UploadsGists { GitHubSender = gitHubSender };
 
-            uploads.UseCredentials(new GitHubCredentials("something", "secret"));
+            var credentials=new GitHubCredentials("something", "secret");
+            uploads.UseCredentials(credentials);
 
             uploads.Upload("file4.cs", "gee wizz");
 
+            gitHubSender.LastCredentialsApplied.Should().Equal(credentials);
             gitHubSender.LastUsernameUsed.Should().Equal("something");
             gitHubSender.LastPasswordUsed.Should().Equal("secret");
         }
@@ -73,7 +75,7 @@ namespace GisterSpecs
             var didTellUs = false;
             uploads.CredentialsAreBad = () => didTellUs = true;
 
-            uploads.Upload("asdf","asdF");
+            uploads.Upload("asdf", "asdF");
 
             didTellUs.Should().Be.True();
         }

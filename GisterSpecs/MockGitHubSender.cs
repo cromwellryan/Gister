@@ -19,10 +19,13 @@ namespace GisterSpecs
 
         public string LastUsernameUsed { get; private set; }
 
-        public string SendGist(string fileName, string content, string githubusername, string githubpassword)
+        public GitHubCredentials LastCredentialsApplied { get; private set; }
+
+        public string SendGist(string fileName, string content, GitHubCredentials credentials)
         {
             LastUsernameUsed = githubusername;
             LastPasswordUsed = githubpassword;
+            LastCredentialsApplied = credentials;
 
             if (ShouldThrow())
                 throw new GitHubUnauthorizedException(failureStatusDescription);

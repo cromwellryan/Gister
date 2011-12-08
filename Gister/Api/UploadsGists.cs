@@ -21,7 +21,7 @@ namespace EchelonTouchInc.Gister.Api
 
             try
             {
-                gistUrl = GitHubSender.SendGist(fileName, content, this.gitHubCredentials.Username, this.gitHubCredentials.Password);
+                gistUrl = GitHubSender.SendGist(fileName, content, gitHubCredentials);
             }
             catch (GitHubUnauthorizedException ex)
             {
