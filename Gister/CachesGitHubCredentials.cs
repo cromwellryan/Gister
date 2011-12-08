@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using EchelonTouchInc.Gister.Api;
+using System.Text;
 using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
@@ -9,22 +9,32 @@ namespace EchelonTouchInc.Gister
     {
         private const string CredentialsFileName = ".githubcreds";
 
+        public CachesGitHubCredentials()
+        {
+            Encrypt = input =>
+                          {
+                              var byt = Encoding.UTF8.GetBytes(input);
+                              return Convert.ToBase64String(byt);
+                          };
+            Decrypt = input =>
+                          {
+
+                              var byt = Convert.FromBase64String(input);
+                              return Encoding.UTF8.GetString(byt);
+                          };
+        }
+
         public string TestPathToCredentials { get; set; }
+
+        public Func<string, string> Encrypt { get; set; }
+
+        public Func<string, string> Decrypt { get; set; }
 
         public bool IsAvailable()
         {
             var path = GetPathToCredentialsFile();
 
             return File.Exists(path);
-        }
-
-        public GitHubCredentials Retrieve()
-        {
-            var path = GetPathToCredentialsFile();
-
-            var lines = File.ReadAllLines(path);
-
-            return DecodeGitHubCredentialsFromFile(lines);
         }
 
         public void AssureNotCached()
@@ -41,7 +51,19 @@ namespace EchelonTouchInc.Gister
 
             PurgeAnyCache();
 
-            File.WriteAllLines(path, new[] { userCredentials.Username, userCredentials.Password });
+            File.WriteAllLines(path, new[] { Encrypt(userCredentials.Username), Encrypt(userCredentials.Password) });
+        }
+
+        public GitHubCredentials Retrieve()
+        {
+            var path = GetPathToCredentialsFile();
+
+            var lines = File.ReadAllLines(path);
+
+            var username = Decrypt(lines[0]);
+            var password = Decrypt(lines[1]);
+
+            return new GitHubUserCredentials(username, password);
         }
 
         private string GetPathToCredentialsFile()
@@ -60,11 +82,6 @@ namespace EchelonTouchInc.Gister
         private bool IsTestPathProvided()
         {
             return !string.IsNullOrEmpty(TestPathToCredentials);
-        }
-
-        private static GitHubCredentials DecodeGitHubCredentialsFromFile(string[] lines)
-        {
-            return new GitHubUserCredentials(lines[0], lines[1]);
         }
 
         private void PurgeAnyCache()

@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using EchelonTouchInc.Gister;
-using EchelonTouchInc.Gister.Api;
 using EchelonTouchInc.Gister.Api.Credentials;
 using NUnit.Framework;
 using Should.Fluent;
@@ -10,11 +9,21 @@ namespace GisterSpecs
     [TestFixture]
     public class CachesGitHubCredentials_Specs
     {
+        private CachesGitHubCredentials cache;
+
+        [SetUp]
+        public void Before()
+        {
+            cache = new CachesGitHubCredentials
+            {
+                Encrypt = s => s,
+                Decrypt = s => s
+            };
+        }
+
         [Test]
         public void UsernameOnFirstLine()
         {
-            var cache = new CachesGitHubCredentials();
-
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.WriteAllLines(cache.TestPathToCredentials, new[] { @"me", @"secret" });
 
@@ -26,8 +35,6 @@ namespace GisterSpecs
         [Test]
         public void PasswordOnSecondLine()
         {
-            var cache = new CachesGitHubCredentials();
-
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.WriteAllLines(cache.TestPathToCredentials, new[] { @"me", @"secret" });
 
@@ -39,8 +46,6 @@ namespace GisterSpecs
         [Test]
         public void IsNotAvailableIfFileNotFound()
         {
-            var cache = new CachesGitHubCredentials();
-
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.Delete(cache.TestPathToCredentials);
 
@@ -50,8 +55,6 @@ namespace GisterSpecs
         [Test]
         public void CachesUserCredentials()
         {
-            var cache = new CachesGitHubCredentials();
-
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.Delete(cache.TestPathToCredentials);
 
@@ -63,8 +66,6 @@ namespace GisterSpecs
         [Test]
         public void DoesNotCacheAnonymousCredentials()
         {
-            var cache = new CachesGitHubCredentials();
-
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.Delete(cache.TestPathToCredentials);
 
@@ -76,13 +77,42 @@ namespace GisterSpecs
         [Test]
         public void ReturnsGitHubUserCredentials()
         {
-            var cache = new CachesGitHubCredentials();
-
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.WriteAllLines(cache.TestPathToCredentials, new[] { @"me", @"secret" });
 
             cache.Retrieve().Should().Be.OfType<GitHubUserCredentials>();
         }
 
+        [Test]
+        public void WillEncryptCache()
+        {
+            cache.TestPathToCredentials = Path.GetTempFileName();
+
+            cache.Encrypt = (input) => "encrypted";
+            cache.Decrypt = input => input;
+
+            cache.Cache(new GitHubUserCredentials("a", "b"));
+
+            var creds = cache.Retrieve() as GitHubUserCredentials;
+
+            creds.Username.Should().Equal("encrypted");
+            creds.Password.Should().Equal("encrypted");
+        }
+
+        [Test]
+        public void WillDecryptCache()
+        {
+            cache.TestPathToCredentials = Path.GetTempFileName();
+
+            cache.Encrypt = input => input;
+            cache.Decrypt = input => "decrypted";
+
+            cache.Cache(new GitHubUserCredentials("b", "a"));
+
+            var creds = cache.Retrieve() as GitHubUserCredentials;
+
+            creds.Username.Should().Equal("decrypted");
+            creds.Password.Should().Equal("decrypted");
+        }
     }
 }
