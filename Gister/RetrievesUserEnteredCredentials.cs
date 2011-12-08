@@ -18,7 +18,7 @@ namespace EchelonTouchInc.Gister
             if (prompt.Result != true)
                 return GitHubCredentials.Anonymous;
 
-            return new GitHubCredentials(prompt.Username, prompt.Password);
+            return new GitHubUserCredentials(prompt.Username, prompt.Password);
         }
 
         public bool IsAvailable()

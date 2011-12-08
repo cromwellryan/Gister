@@ -5,13 +5,12 @@ namespace EchelonTouchInc.Gister.Api
     public class UploadsGists : CanReceiveCredentials
     {
 
-        private GitHubCredentials gitHubCredentials = new AnonymousGitHubCredentials();
+        private GitHubCredentials gitHubCredentials = GitHubCredentials.Anonymous;
 
         public UploadsGists()
         {
             GitHubSender = new NoWhereGitHubSender();
-            UrlAvailable = s => { };
-            Uploaded = () => { };
+            Uploaded = url => { };
             CredentialsAreBad = () => { };
         }
 
@@ -23,14 +22,13 @@ namespace EchelonTouchInc.Gister.Api
             {
                 gistUrl = GitHubSender.SendGist(fileName, content, gitHubCredentials);
             }
-            catch (GitHubUnauthorizedException ex)
+            catch (GitHubUnauthorizedException)
             {
                 CredentialsAreBad();
                 return;
             }
 
-            Uploaded();
-            UrlAvailable(gistUrl);
+            Uploaded(gistUrl);
         }
 
         public void UseCredentials(GitHubCredentials credentials)
@@ -40,16 +38,9 @@ namespace EchelonTouchInc.Gister.Api
 
         public GitHubSender GitHubSender { get; set; }
 
-        public Action<string> UrlAvailable { get; set; }
-
-        public Action Uploaded { get; set; }
+        public Action<string> Uploaded { get; set; }
 
         public Action CredentialsAreBad { get; set; }
-
-        private class AnonymousGitHubCredentials : GitHubCredentials
-        {
-            public AnonymousGitHubCredentials() : base("", "") { }
-        }
     }
 
 }

@@ -1,22 +1,27 @@
 namespace EchelonTouchInc.Gister.Api
 {
-    public class GitHubCredentials
+    public abstract class GitHubCredentials
     {
         static GitHubCredentials()
         {
-            Anonymous = new GitHubCredentials("", "");
+            Anonymous = new AnonymousGitHubCredentials();
         }
-        
-        public GitHubCredentials(string username, string password)
+
+        public static GitHubCredentials Anonymous { get; private set; }
+    }
+
+    public class AnonymousGitHubCredentials : GitHubCredentials { }
+
+    public class GitHubUserCredentials : GitHubCredentials
+    {
+        public GitHubUserCredentials(string username, string password)
         {
             Username = username;
             Password = password;
         }
 
-        public string Password { get; private set; }
-
         public string Username { get; private set; }
 
-        public static GitHubCredentials Anonymous { get; private set; }
+        public string Password { get; private set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using EchelonTouchInc.Gister;
+﻿using EchelonTouchInc.Gister;
+using EchelonTouchInc.Gister.Api;
 using NUnit.Framework;
 using Should.Fluent;
 
@@ -23,10 +23,10 @@ namespace GisterSpecs
                                            return prompt;
                                        };
 
-            var receiver = applies.Retrieve();
+            var credentials = applies.Retrieve().Should().Be.OfType<GitHubUserCredentials>() as GitHubUserCredentials;
 
-            receiver.Username.Should().Equal("it");
-            receiver.Password.Should().Equal("rocks");
+            credentials.Username.Should().Equal("it");
+            credentials.Password.Should().Equal("rocks");
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace GisterSpecs
 
             var receiver = applies.Retrieve();
 
-            receiver.Username.Should().Not.Equal("it");
+            receiver.Should().Be.OfType<AnonymousGitHubCredentials>();
         }
     }
 

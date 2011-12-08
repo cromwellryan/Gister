@@ -15,16 +15,10 @@ namespace GisterSpecs
 
         public string ResultingUrl { get; set; }
 
-        public string LastPasswordUsed { get; private set; }
-
-        public string LastUsernameUsed { get; private set; }
-
         public GitHubCredentials LastCredentialsApplied { get; private set; }
 
         public string SendGist(string fileName, string content, GitHubCredentials credentials)
         {
-            LastUsernameUsed = githubusername;
-            LastPasswordUsed = githubpassword;
             LastCredentialsApplied = credentials;
 
             if (ShouldThrow())

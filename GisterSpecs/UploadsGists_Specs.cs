@@ -19,34 +19,33 @@ namespace GisterSpecs
         }
 
         [Test]
-        public void GistUrlWillBeAvaible()
-        {
-            string actualUrl = null;
-
-            var gitHubSender = new MockGitHubSender() { ResultingUrl = "http://gist.github.com/123" };
-            var gistApi = new UploadsGists { GitHubSender = gitHubSender, UrlAvailable = url => actualUrl = url };
-
-            gistApi.Upload("file3.cs", "My oh my");
-
-            actualUrl.Should().Equal("http://gist.github.com/123");
-
-        }
-
-        [Test]
         public void WillBeSentWithAppliedCredentials()
         {
             var gitHubSender = new MockGitHubSender();
 
             var uploads = new UploadsGists { GitHubSender = gitHubSender };
 
-            var credentials=new GitHubCredentials("something", "secret");
+            var credentials = new GitHubUserCredentials("something", "secret");
             uploads.UseCredentials(credentials);
 
             uploads.Upload("file4.cs", "gee wizz");
 
             gitHubSender.LastCredentialsApplied.Should().Equal(credentials);
-            gitHubSender.LastUsernameUsed.Should().Equal("something");
-            gitHubSender.LastPasswordUsed.Should().Equal("secret");
+        }
+
+        [Test]
+        public void GistUrlWillBeAvaible()
+        {
+            string actualUrl = null;
+
+            var gitHubSender = new MockGitHubSender() { ResultingUrl = "http://gist.github.com/123" };
+            var gistApi = new UploadsGists { GitHubSender = gitHubSender };
+
+            gistApi.Uploaded = url => actualUrl = url;
+            gistApi.Upload("file3.cs", "My oh my");
+
+            actualUrl.Should().Equal("http://gist.github.com/123");
+
         }
 
         [Test]
@@ -56,7 +55,7 @@ namespace GisterSpecs
 
             var uploads = new UploadsGists();
 
-            uploads.Uploaded = () => wasSuccessful = true;
+            uploads.Uploaded = url => wasSuccessful = true;
 
             uploads.Upload("asdf", "qwer");
 

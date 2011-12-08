@@ -91,29 +91,35 @@ namespace EchelonTouchInc.Gister
 
             var credentials = GetGitHubCredentials();
 
-            if (credentials == GitHubCredentials.Anonymous) return;
+            NotifyUserThat("Creating gist for {0}", fileName);
+
+            if (credentials == GitHubCredentials.Anonymous)
+            {
+                NotifyUserThat("Cancelled Gist");
+                return;
+            }
 
             var uploadsGists = new UploadsGists
                                    {
                                        GitHubSender = new HttpGitHubSender(),
-                                       UrlAvailable = url => Clipboard.SetText(url),
                                        CredentialsAreBad = () =>
                                                                {
                                                                    NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
                                                                    new CachesGitHubCredentials().AssureNotCached();
                                                                },
-                                       Uploaded = () =>
+                                       Uploaded = url =>
                                                       {
-                                                          NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+                                                          Clipboard.SetText(url);
                                                           new CachesGitHubCredentials().Cache(credentials);
+
+                                                          NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
                                                       }
                                    };
 
             uploadsGists.UseCredentials(credentials);
 
-            NotifyUserThat("Creating gist for {0}", fileName);
-
             uploadsGists.Upload(fileName, content);
+
         }
 
         private static GitHubCredentials GetGitHubCredentials()
