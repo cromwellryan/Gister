@@ -2,9 +2,9 @@ using EchelonTouchInc.Gister.Api;
 
 namespace EchelonTouchInc.Gister
 {
-    public interface AppliesCredentials
+    public interface RetrievesCredentials
     {
-        void Apply(CanReceiveCredentials receiver);
         bool IsAvailable();
+        GitHubCredentials Retrieve();
     }
 }

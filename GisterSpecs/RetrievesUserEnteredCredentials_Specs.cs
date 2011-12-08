@@ -6,12 +6,12 @@ using Should.Fluent;
 namespace GisterSpecs
 {
     [TestFixture]
-    public class AppliesUserEnteredCredentials_Specs
+    public class RetrievesUserEnteredCredentials_Specs
     {
         [Test]
         public void WillApplyCredentialsIfUserOks()
         {
-            var applies = new AppliesUserEnteredCredentials();
+            var applies = new RetrievesUserEnteredCredentials();
 
             applies.CreatePrompt = () =>
                                        {
@@ -23,8 +23,7 @@ namespace GisterSpecs
                                            return prompt;
                                        };
 
-            var receiver = new MockCanReceiveCredentials();
-            applies.Apply(receiver);
+            var receiver = applies.Retrieve();
 
             receiver.Username.Should().Equal("it");
             receiver.Password.Should().Equal("rocks");
@@ -33,7 +32,7 @@ namespace GisterSpecs
         [Test]
         public void WillNotApplyCredentialsIfUserCancels()
         {
-            var applies = new AppliesUserEnteredCredentials();
+            var applies = new RetrievesUserEnteredCredentials();
 
             applies.CreatePrompt = () =>
                                        {
@@ -45,9 +44,7 @@ namespace GisterSpecs
                                            return prompt;
                                        };
 
-
-            var receiver = new MockCanReceiveCredentials();
-            applies.Apply(receiver);
+            var receiver = applies.Retrieve();
 
             receiver.Username.Should().Not.Equal("it");
         }

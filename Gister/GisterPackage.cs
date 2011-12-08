@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using EchelonTouchInc.Gister.Api;
 using EnvDTE;
@@ -87,21 +90,44 @@ namespace EchelonTouchInc.Gister
             var content = GetCurrentContentForGist(view);
             var fileName = GetCurrentFilenameForGist();
 
+            var credentials = GetGitHubCredentials();
+
             var uploadsGists = new UploadsGists
-            {
-                GitHubSender = new HttpGitHubSender(),
-                UrlAvailable = url => Clipboard.SetText(url),
-                CredentialsAreBad = () => NotifyUserThat("Gist not created.  Invalid GitHub Credentials"),
-                Uploaded = () => NotifyUserThat("Gist created successfully.  Url placed in the clipboard.")
-            };
+                                   {
+                                       GitHubSender = new HttpGitHubSender(),
+                                       UrlAvailable = url => Clipboard.SetText(url),
+                                       CredentialsAreBad = () =>
+                                                               {
+                                                                   NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
+                                                                   new CachesGitHubCredentials().AssureNotCached();
+                                                               },
+                                       Uploaded = () =>
+                                                      {
+                                                          NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+                                                          new CachesGitHubCredentials().Cache(credentials);
+                                                      }
+                                   };
 
-            var appliesCredentials = new AppliesAppropriateCredentials(new AppliesCachedGitHubCredentials(),
-                                                                       new AppliesUserEnteredCredentials());
-
-            appliesCredentials.Apply(uploadsGists);
+            uploadsGists.UseCredentials(credentials);
 
             NotifyUserThat("Creating gist for {0}", fileName);
+
             uploadsGists.Upload(fileName, content);
+        }
+
+        private static GitHubCredentials GetGitHubCredentials()
+        {
+            var retrievers = new RetrievesCredentials[]
+                                 {
+                                     new CachesGitHubCredentials(),
+                                     new RetrievesUserEnteredCredentials()
+                                 };
+
+            var firstAppropriate = (from applier in retrievers
+                                    where applier.IsAvailable()
+                                    select applier).First();
+
+            return firstAppropriate.Retrieve();
         }
 
         private bool NotReadyRockAndRoll(IWpfTextView view)

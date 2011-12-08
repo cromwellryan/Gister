@@ -4,16 +4,9 @@ using EchelonTouchInc.Gister.Api;
 
 namespace EchelonTouchInc.Gister
 {
-    public class AppliesCachedGitHubCredentials : AppliesCredentials
+    public class CachesGitHubCredentials : RetrievesCredentials
     {
         public string TestPathToCredentials { get; set; }
-
-        public void Apply(CanReceiveCredentials receiver)
-        {
-            var credentials = GetCredentials();
-
-            receiver.UseCredentials(credentials);
-        }
 
         private GitHubCredentials GetCredentials()
         {
@@ -48,6 +41,33 @@ namespace EchelonTouchInc.Gister
         public bool IsAvailable()
         {
             return File.Exists(VsProfileCredentials());
+        }
+
+        public GitHubCredentials Retrieve()
+        {
+            return GetCredentials();
+        }
+
+        public void AssureNotCached()
+        {
+            PurgeAnyCache();
+        }
+
+        private static void PurgeAnyCache()
+        {
+            var path = VsProfileCredentials();
+
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
+        public void Cache(GitHubCredentials credentials)
+        {
+            var path = VsProfileCredentials();
+
+            PurgeAnyCache();
+
+            File.WriteAllLines(path, new[] {credentials.Username, credentials.Password});
         }
     }
 }

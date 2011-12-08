@@ -3,22 +3,22 @@ using EchelonTouchInc.Gister.Api;
 
 namespace EchelonTouchInc.Gister
 {
-    public class AppliesUserEnteredCredentials : AppliesCredentials
+    public class RetrievesUserEnteredCredentials : RetrievesCredentials
     {
-        public AppliesUserEnteredCredentials()
+        public RetrievesUserEnteredCredentials()
         {
             CreatePrompt = () => new GitHubCredentialsPrompt();
         }
-        public void Apply(CanReceiveCredentials receiver)
+
+        private GitHubCredentials GetCredentials()
         {
             var prompt = CreatePrompt();
 
             prompt.Prompt();
             if (prompt.Result != true)
-                return;
+                return GitHubCredentials.Anonymous;
 
-            var credentials = new GitHubCredentials(prompt.Username, prompt.Password);
-            receiver.UseCredentials(credentials);
+            return new GitHubCredentials(prompt.Username, prompt.Password);
         }
 
         public bool IsAvailable()
@@ -27,5 +27,10 @@ namespace EchelonTouchInc.Gister
         }
 
         public Func<CredentialsPrompt> CreatePrompt { get; set; }
+
+        public GitHubCredentials Retrieve()
+        {
+            return GetCredentials();
+        }
     }
 }

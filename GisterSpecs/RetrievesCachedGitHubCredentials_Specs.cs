@@ -7,40 +7,38 @@ using Should.Fluent;
 namespace GisterSpecs
 {
     [TestFixture]
-    public class AppliesCachedGitHubCredentials_Specs
+    public class RetrievesCachedGitHubCredentials_Specs
     {
         [Test]
         public void UsernameOnFirstLine()
         {
-            var cache = new AppliesCachedGitHubCredentials();
+            var cache = new CachesGitHubCredentials();
 
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.WriteAllLines(cache.TestPathToCredentials, new[] { @"me", @"secret" });
 
-            var receiver = new MockCanReceiveCredentials();
-            cache.Apply(receiver);
+            var credentials = cache.Retrieve();
 
-            receiver.Username.Should().Equal("me");
+            credentials.Username.Should().Equal("me");
         }
 
         [Test]
         public void PasswordOnSecondLine()
         {
-            var cache = new AppliesCachedGitHubCredentials();
+            var cache = new CachesGitHubCredentials();
 
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.WriteAllLines(cache.TestPathToCredentials, new[] { @"me", @"secret" });
 
-            var receiver = new MockCanReceiveCredentials();
-            cache.Apply(receiver);
+            var credentials = cache.Retrieve();
 
-            receiver.Password.Should().Equal("secret");
+            credentials.Password.Should().Equal("secret");
         }
 
         [Test]
         public void IsNotAvailableIfFileNotFound()
         {
-            var cache = new AppliesCachedGitHubCredentials();
+            var cache = new CachesGitHubCredentials();
 
             cache.TestPathToCredentials = Path.GetTempFileName();
             File.Delete(cache.TestPathToCredentials);

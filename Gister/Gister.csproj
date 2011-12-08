@@ -134,13 +134,12 @@
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
-    <Compile Include="AppliesAppropriateCredentials.cs" />
-    <Compile Include="AppliesCredentials.cs" />
-    <Compile Include="AppliesUserEnteredCredentials.cs" />
+    <Compile Include="RetrievesCredentials.cs" />
+    <Compile Include="RetrievesUserEnteredCredentials.cs" />
     <Compile Include="CredentialsPrompt.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="GisterPackage.cs" />
-    <Compile Include="AppliesCachedGitHubCredentials.cs" />
+    <Compile Include="CachesGitHubCredentials.cs" />
     <Compile Include="GitHubCredentialsPrompt.xaml.cs">
       <DependentUpon>GitHubCredentialsPrompt.xaml</DependentUpon>
     </Compile>

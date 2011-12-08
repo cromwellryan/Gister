@@ -59,11 +59,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppliesAppropriateCredentials_Specs.cs" />
-    <Compile Include="AppliesUserEnteredCredentials_Specs.cs" />
+    <Compile Include="RetrievesUserEnteredCredentials_Specs.cs" />
     <Compile Include="CreatesGistMessages_Specs.cs" />
     <Compile Include="EasyIntegrationTest.cs" />
-    <Compile Include="AppliesCachedGitHubCredentials_Specs.cs" />
+    <Compile Include="RetrievesCachedGitHubCredentials_Specs.cs" />
     <Compile Include="UploadsGists_Specs.cs" />
     <Compile Include="CleansGistContent_Specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
