@@ -3,7 +3,7 @@
   <Identifier Id="282f92e9-8465-4d0e-b815-4a87a990219c">
     <Name>Gister</Name>
     <Author>EchelonTouch Inc</Author>
-    <Version>1.2</Version>
+    <Version>1.3</Version>
     <Description xml:space="preserve">Gister lets you create Github Gists within Visual Studio.</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>https://github.com/cromwellryan/Gister</MoreInfoUrl>
@@ -17,8 +17,13 @@
         <Edition>Premium</Edition>
         <Edition>Pro</Edition>
       </VisualStudio>
+       <VisualStudio Version="11.0">
+        <Edition>Ultimate</Edition>
+        <Edition>Premium</Edition>
+        <Edition>Pro</Edition>
+      </VisualStudio>
     </SupportedProducts>
-    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
+   <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="5.0" />
   </Identifier>
   <References>
     <Reference Id="Microsoft.VisualStudio.MPF" MinVersion="10.0">
