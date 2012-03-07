@@ -9,7 +9,7 @@
     <MoreInfoUrl>https://github.com/cromwellryan/Gister</MoreInfoUrl>
     <License>license.txt</License>
     <Icon>resources\logo_gist.png</Icon>
-    <PreviewImage>images\credsbackround.png</PreviewImage>
+    <PreviewImage>gisterpreview.png</PreviewImage>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">
