@@ -90,7 +90,9 @@
  
   </Commands>
 
-
+  <KeyBindings>
+    <KeyBinding guid="guidGisterCmdSet" id="cmdCreateGist" editor="guidVSStd97" key1="VK_INSERT" mod1="Control Alt"></KeyBinding>
+  </KeyBindings>
 
 
 
@@ -110,6 +112,10 @@
     <GuidSymbol name="guidImages" value="{f919a468-ffde-49da-b110-0d63ae4690b2}">
       <IDSymbol name="gistLogo" value="1" />
    </GuidSymbol>
+    
+    
+    
+    
   </Symbols>
 
 </CommandTable>
