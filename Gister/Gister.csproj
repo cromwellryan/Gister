@@ -165,6 +165,9 @@
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
+    <Compile Include="GitHubDescriptionPrompt.xaml.cs">
+      <DependentUpon>GitHubDescriptionPrompt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RetrievesCredentials.cs" />
     <Compile Include="RetrievesUserEnteredCredentials.cs" />
     <Compile Include="CredentialsPrompt.cs" />
@@ -234,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GitHubDescriptionPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
