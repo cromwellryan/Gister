@@ -15,6 +15,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Utilities;
 
+
 namespace EchelonTouchInc.Gister
 {
     /// <summary>
