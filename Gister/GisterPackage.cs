@@ -74,6 +74,9 @@ namespace EchelonTouchInc.Gister
             var createGistCommand = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGist);
             var createGistMenuItem = new MenuCommand(CreateGist, createGistCommand);
             mcs.AddCommand(createGistMenuItem);
+
+            var createGistWithDescriptionCommand = new CommandID(GuidList.guidGisterWithDescriptionCmdSet, (int)PkgCmdIDList.cmdCreateGistWithDescription);
+          
         }
         #endregion
 
@@ -83,6 +86,12 @@ namespace EchelonTouchInc.Gister
         /// the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
         private void CreateGist(object sender, EventArgs e)
+        {
+            PostGist();
+
+        }
+
+        private void PostGist(string description="",bool ispublic=true)
         {
             var view = GetActiveTextView();
 
@@ -102,31 +111,52 @@ namespace EchelonTouchInc.Gister
             }
 
             var uploadsGists = new UploadsGists
-                                   {
-                                       GitHubSender = new HttpGitHubSender(),
-                                       CredentialsAreBad = () =>
-                                                               {
-                                                                   NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
-                                                                   new CachesGitHubCredentials().AssureNotCached();
-                                                               },
-                                       Uploaded = url =>
-                                                      {
-                                                          Clipboard.SetText(url);
-                                                          new CachesGitHubCredentials().Cache(credentials);
+            {
+                GitHubSender = new HttpGitHubSender(),
+                CredentialsAreBad = () =>
+                {
+                    NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
+                    new CachesGitHubCredentials().AssureNotCached();
+                },
+                Uploaded = url =>
+                {
+                    Clipboard.SetText(url);
+                    new CachesGitHubCredentials().Cache(credentials);
 
-                                                          NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
-                                                      }
-                                   };
+                    NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+                }
+            };
 
             uploadsGists.UseCredentials(credentials);
 
-            uploadsGists.Upload(fileName, content);
-
+            uploadsGists.Upload(fileName, content, "", true);
         }
+
+
+        /// <summary>
+        /// This function is the callback used to execute a command when the a menu item is clicked.
+        /// See the Initialize method to see how the menu item is associated to this function using
+        /// the OleMenuCommandService service and the MenuCommand class.
+        /// </summary>
+        private void CreateGistWithDescription(object sender, EventArgs e)
+        {
+
+            Func<IDescriptionPrompt> CreatePrompt = () => new GitHubDescriptionPrompt();
+
+            var prompt = CreatePrompt();
+            var description = prompt.Description;
+            bool isPublic = prompt.GistPrivate == false ? true : false;
+            PostGist(description,isPublic);
+        }
+
+       
+            
+
+      
 
         private static GitHubCredentials GetGitHubCredentials()
         {
-            var retrievers = new RetrievesCredentials[]
+            var retrievers = new IRetrievesCredentials[]
                                  {
                                      new CachesGitHubCredentials(),
                                      new RetrievesUserEnteredCredentials()

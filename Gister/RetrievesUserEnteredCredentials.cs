@@ -4,7 +4,7 @@ using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
 {
-    public class RetrievesUserEnteredCredentials : RetrievesCredentials
+    public class RetrievesUserEnteredCredentials : IRetrievesCredentials
     {
         public RetrievesUserEnteredCredentials()
         {
@@ -27,7 +27,7 @@ namespace EchelonTouchInc.Gister
             return true;
         }
 
-        public Func<CredentialsPrompt> CreatePrompt { get; set; }
+        public Func<ICredentialsPrompt> CreatePrompt { get; set; }
 
         public GitHubCredentials Retrieve()
         {

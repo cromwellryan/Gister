@@ -6,7 +6,7 @@ namespace EchelonTouchInc.Gister
     /// <summary>
     /// Interaction logic for GitHubCredentialsPrompt.xaml
     /// </summary>
-    public partial class GitHubCredentialsPrompt : Window, CredentialsPrompt
+    public partial class GitHubCredentialsPrompt : Window, ICredentialsPrompt
     {
         public GitHubCredentialsPrompt()
         {

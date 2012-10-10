@@ -10,9 +10,9 @@ namespace EchelonTouchInc.Gister.Api
     public class HttpGitHubSender : GitHubSender
     {
 
-        public string SendGist(string fileName, string content, GitHubCredentials credentials)
+        public string SendGist(string fileName, string content, string description, bool isPublic, GitHubCredentials credentials)
         {
-            var gistAsJson = new CreatesGistMessages().CreateMessage(fileName, content);
+            var gistAsJson = new CreatesGistMessages().CreateMessage(fileName, content, description, isPublic);
 
             using (var stream = new MemoryStream())
             {

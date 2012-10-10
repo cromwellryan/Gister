@@ -165,12 +165,13 @@
     <Compile Include="Api\GitHubSender.cs" />
     <Compile Include="Api\HttpGitHubSender.cs" />
     <Compile Include="Api\NoWhereGitHubSender.cs" />
+    <Compile Include="IDescriptionPrompt.cs" />
     <Compile Include="GitHubDescriptionPrompt.xaml.cs">
       <DependentUpon>GitHubDescriptionPrompt.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RetrievesCredentials.cs" />
+    <Compile Include="IRetrievesCredentials.cs" />
     <Compile Include="RetrievesUserEnteredCredentials.cs" />
-    <Compile Include="CredentialsPrompt.cs" />
+    <Compile Include="ICredentialsPrompt.cs" />
     <Compile Include="FluentHttp\HttpBasicAuthenticator.cs" />
     <Compile Include="GisterPackage.cs" />
     <Compile Include="CachesGitHubCredentials.cs" />
@@ -210,6 +211,7 @@
   <ItemGroup>
     <VSCTCompile Include="Gister.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
