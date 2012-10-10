@@ -76,7 +76,8 @@ namespace EchelonTouchInc.Gister
             mcs.AddCommand(createGistMenuItem);
 
             var createGistWithDescriptionCommand = new CommandID(GuidList.guidGisterWithDescriptionCmdSet, (int)PkgCmdIDList.cmdCreateGistWithDescription);
-          
+            var createGistWithDescriptionMenuItem = new MenuCommand(CreateGistWithDescription, createGistWithDescriptionCommand);
+            mcs.AddCommand(createGistWithDescriptionMenuItem);
         }
         #endregion
 
@@ -149,10 +150,6 @@ namespace EchelonTouchInc.Gister
             PostGist(description,isPublic);
         }
 
-       
-            
-
-      
 
         private static GitHubCredentials GetGitHubCredentials()
         {

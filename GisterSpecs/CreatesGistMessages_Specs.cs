@@ -17,7 +17,7 @@ namespace GisterSpecs
     ""myfile.cs"": {
       ""content"": ""Some super sweet gistiness""
     }
-  }
+  } 
 }");
 
         }

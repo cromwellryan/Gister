@@ -47,9 +47,6 @@
       <Group guid="guidGisterCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
-      
-
-
     </Groups>
     
     <!--Buttons section. -->
@@ -70,6 +67,15 @@
         <Strings>
           <CommandName>cmdCreateGist</CommandName>
           <ButtonText>Create Gist</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidGisterCmdSet" id="cmdCreateGistWithDescription" priority="0x0101" type="Button">
+        <Parent guid="guidGisterCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="gistLogo" />
+        <Strings>
+          <CommandName>cmdCreateGistWithDescription</CommandName>
+          <ButtonText>Create Gist With Description</ButtonText>
         </Strings>
       </Button>
 
@@ -103,11 +109,11 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidGisterCmdSet" value="{652e87f9-3c5d-4e8b-8b80-f5a0efd16d69}">
 
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="MyMenuGroup" value="0x1021" />
       <IDSymbol name="cmdCreateGist" value="0x0100" />
+      <IDSymbol name="cmdCreateGistWithDescription" value="0x0101" />
     </GuidSymbol>
-    
-    
+
     
     <GuidSymbol name="guidImages" value="{f919a468-ffde-49da-b110-0d63ae4690b2}">
       <IDSymbol name="gistLogo" value="1" />
