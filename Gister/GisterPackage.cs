@@ -72,11 +72,11 @@ namespace EchelonTouchInc.Gister
 
             // Create the command for the menu item.
             var createGistCommand = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGist);
-            var createGistMenuItem = new MenuCommand(CreateGist, createGistCommand);
+            var createGistMenuItem = new MenuCommand(CreateGistCallback, createGistCommand);
             mcs.AddCommand(createGistMenuItem);
 
-            var createGistWithDescriptionCommand = new CommandID(GuidList.guidGisterWithDescriptionCmdSet, (int)PkgCmdIDList.cmdCreateGistWithDescription);
-            var createGistWithDescriptionMenuItem = new MenuCommand(CreateGistWithDescription, createGistWithDescriptionCommand);
+            var createGistWithDescriptionCommand = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGistWithDescription);
+            var createGistWithDescriptionMenuItem = new MenuCommand(CreateGistWithDescriptionCallback, createGistWithDescriptionCommand);
             mcs.AddCommand(createGistWithDescriptionMenuItem);
         }
         #endregion
@@ -86,7 +86,7 @@ namespace EchelonTouchInc.Gister
         /// See the Initialize method to see how the menu item is associated to this function using
         /// the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
-        private void CreateGist(object sender, EventArgs e)
+        private void CreateGistCallback(object sender, EventArgs e)
         {
             PostGist();
 
@@ -130,7 +130,7 @@ namespace EchelonTouchInc.Gister
 
             uploadsGists.UseCredentials(credentials);
 
-            uploadsGists.Upload(fileName, content, "", true);
+            uploadsGists.Upload(fileName, content, description, ispublic);
         }
 
 
@@ -139,12 +139,13 @@ namespace EchelonTouchInc.Gister
         /// See the Initialize method to see how the menu item is associated to this function using
         /// the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
-        private void CreateGistWithDescription(object sender, EventArgs e)
+        private void CreateGistWithDescriptionCallback(object sender, EventArgs e)
         {
 
             Func<IDescriptionPrompt> CreatePrompt = () => new GitHubDescriptionPrompt();
 
             var prompt = CreatePrompt();
+            prompt.Prompt();
             var description = prompt.Description;
             bool isPublic = prompt.GistPrivate == false ? true : false;
             PostGist(description,isPublic);
