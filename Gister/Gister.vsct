@@ -97,7 +97,8 @@
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="guidGisterCmdSet" id="cmdCreateGist" editor="guidVSStd97" key1="VK_INSERT" mod1="Control Alt"></KeyBinding>
+    <KeyBinding guid="guidGisterCmdSet" id="cmdCreateGist" editor="guidVSStd97" key1="VK_INSERT" mod1="Control Alt" key2="VK_HOME"></KeyBinding>
+     <KeyBinding guid="guidGisterCmdSet" id="cmdCreateGistWithDescription" editor="guidVSStd97" key1="VK_INSERT" mod1="Control Alt" key2="VK_END"></KeyBinding>
   </KeyBindings>
 
 
