@@ -6,15 +6,7 @@ namespace EchelonTouchInc.Gister.Api
         {
             var realContent = new CleansGistContent().Clean(content);
 
-//            string retValue=@"{
-//              ""description"": @""" + description + @""",
-//              ""public"": true,
-//              ""files"": {
-//                """ + filename + @""": {
-//                  ""content"": """ + realContent + @"""
-//                }
-//              }
-//            }";
+
             string retValue = "{"
                 + "\"description\": \""+description+"\","
                 + "\"public\": "+isPublic.ToString().ToLower()+","

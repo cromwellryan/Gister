@@ -10,15 +10,8 @@ namespace GisterSpecs
         [Test]
         public void ShouldEncodeMessagesAsJson()
         {
-            new CreatesGistMessages().CreateMessage("myfile.cs", "Some super sweet gistiness","description",false).Should().Equal(
-                @"{
-  ""public"": true,
-  ""files"": {
-    ""myfile.cs"": {
-      ""content"": ""Some super sweet gistiness""
-    }
-  } 
-}");
+            new CreatesGistMessages().CreateMessage("myfile.cs", "Some super sweet gistiness", "the description for this gist", false).Should().Equal(
+                @"{""description"": ""the description for this gist"",""public"": false,""files"": {""myfile.cs"": {""content"": ""Some super sweet gistiness""}}}");
 
         }
 
