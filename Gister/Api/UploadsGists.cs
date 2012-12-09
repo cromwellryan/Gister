@@ -15,13 +15,13 @@ namespace EchelonTouchInc.Gister.Api
             CredentialsAreBad = () => { };
         }
 
-        public void Upload(string fileName, string content)
+        public void Upload(string fileName, string content,string description,bool isPublic)
         {
             string gistUrl;
 
             try
             {
-                gistUrl = GitHubSender.SendGist(fileName, content, gitHubCredentials);
+                gistUrl = GitHubSender.SendGist(fileName, content, description,isPublic, gitHubCredentials);
             }
             catch (GitHubUnauthorizedException)
             {

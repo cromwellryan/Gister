@@ -18,7 +18,7 @@ namespace GisterSpecs
 
         public GitHubCredentials LastCredentialsApplied { get; private set; }
 
-        public string SendGist(string fileName, string content, GitHubCredentials credentials)
+        public string SendGist(string fileName, string content,string description,bool isPublic, GitHubCredentials credentials)
         {
             LastCredentialsApplied = credentials;
 

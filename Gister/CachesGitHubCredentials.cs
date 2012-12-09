@@ -5,7 +5,7 @@ using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
 {
-    public class CachesGitHubCredentials : RetrievesCredentials
+    public class CachesGitHubCredentials : IRetrievesCredentials
     {
         private const string CredentialsFileName = ".githubcred";
 

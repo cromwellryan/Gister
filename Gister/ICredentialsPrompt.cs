@@ -1,6 +1,6 @@
 namespace EchelonTouchInc.Gister
 {
-    public interface CredentialsPrompt
+    public interface ICredentialsPrompt
     {
         bool? Result { get; }
         string Username { get; }

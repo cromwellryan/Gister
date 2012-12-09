@@ -1,0 +1,15 @@
+﻿<Window x:Class="EchelonTouchInc.Gister.GitHubDescriptionPrompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GitHubDescriptionPrompt" Height="300" Width="300">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Gister;component/Resources/credsbackround.png" Opacity="0.1" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <TextBlock Height="20" HorizontalAlignment="Left" Margin="12,12,-10,0" Name="textBlock1" Text="Description:" VerticalAlignment="Top" Width="290" TextWrapping="WrapWithOverflow" />
+        <TextBox HorizontalAlignment="Left" Height="151" TextWrapping="Wrap" Text="" Name="txtDescription"  VerticalAlignment="Top" Width="270" Margin="12,37,0,0"/>
+        <CheckBox Content="Private" HorizontalAlignment="Left" VerticalAlignment="Top" Name="chkPrivate"  Margin="10,205,0,0" RenderTransformOrigin="0.647,-0.562"/>
+        <Button Content="Ok" Height="23" HorizontalAlignment="Left" Margin="121,237,0,0" Name="btnOk" VerticalAlignment="Top" Width="75" IsDefault="True" Click="OnOkClick" TabIndex="2" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,237,5,0" Name="btnCancel" VerticalAlignment="Top" Width="75" IsCancel="True" Click="OnCancelClick" TabIndex="3" />
+    </Grid>
+</Window>

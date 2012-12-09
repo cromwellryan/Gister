@@ -15,13 +15,13 @@
         defining some of the constants that we will use inside the file. -->
 
   <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
-  <Extern href="stdidcmd.h"/>
+  <Extern href="stdidcmd.h" />
 
   <!--This header contains the command ids for the menus provided by the shell. -->
-  <Extern href="vsshlids.h"/>
+  <Extern href="vsshlids.h" />
 
   <!--Definition of some VSCT specific constants. In this sample we use it for the IDs inside the guidOfficeIcon group. -->
-  <Extern href="msobtnid.h"/>
+  <!--<Extern href="msobtnid.h" xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" />-->
 
 
 
@@ -45,11 +45,8 @@
     <Groups>
 
       <Group guid="guidGisterCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
-      
-
-
     </Groups>
     
     <!--Buttons section. -->
@@ -73,6 +70,15 @@
         </Strings>
       </Button>
 
+      <Button guid="guidGisterCmdSet" id="cmdCreateGistWithDescription" priority="0x0101" type="Button">
+        <Parent guid="guidGisterCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="gistLogo" />
+        <Strings>
+          <CommandName>cmdCreateGistWithDescription</CommandName>
+          <ButtonText>Create Gist With Description</ButtonText>
+        </Strings>
+      </Button>
+
 
 
     </Buttons>
@@ -84,13 +90,16 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used 
             inside a button definition. An important aspect of this declaration is that the element id 
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\logo_gist.ico" usedList="gistLogo"/>
+      <Bitmap guid="guidImages" href="Resources\logo_gist.ico" usedList="gistLogo" />
 
     </Bitmaps>
  
   </Commands>
 
-
+  <KeyBindings>
+    <KeyBinding guid="guidGisterCmdSet" id="cmdCreateGist" editor="guidVSStd97" key1="VK_INSERT" mod1="Control Alt" key2="VK_HOME"></KeyBinding>
+     <KeyBinding guid="guidGisterCmdSet" id="cmdCreateGistWithDescription" editor="guidVSStd97" key1="VK_INSERT" mod1="Control Alt" key2="VK_END"></KeyBinding>
+  </KeyBindings>
 
 
 
@@ -101,15 +110,19 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidGisterCmdSet" value="{652e87f9-3c5d-4e8b-8b80-f5a0efd16d69}">
 
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="MyMenuGroup" value="0x1021" />
       <IDSymbol name="cmdCreateGist" value="0x0100" />
+      <IDSymbol name="cmdCreateGistWithDescription" value="0x0101" />
     </GuidSymbol>
+
     
-    
-    
-    <GuidSymbol name="guidImages" value="{f919a468-ffde-49da-b110-0d63ae4690b2}" >
+    <GuidSymbol name="guidImages" value="{f919a468-ffde-49da-b110-0d63ae4690b2}">
       <IDSymbol name="gistLogo" value="1" />
    </GuidSymbol>
+    
+    
+    
+    
   </Symbols>
 
 </CommandTable>

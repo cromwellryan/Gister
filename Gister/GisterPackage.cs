@@ -15,6 +15,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Utilities;
 
+
 namespace EchelonTouchInc.Gister
 {
     /// <summary>
@@ -71,8 +72,12 @@ namespace EchelonTouchInc.Gister
 
             // Create the command for the menu item.
             var createGistCommand = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGist);
-            var createGistMenuItem = new MenuCommand(CreateGist, createGistCommand);
+            var createGistMenuItem = new MenuCommand(CreateGistCallback, createGistCommand);
             mcs.AddCommand(createGistMenuItem);
+
+            var createGistWithDescriptionCommand = new CommandID(GuidList.guidGisterCmdSet, (int)PkgCmdIDList.cmdCreateGistWithDescription);
+            var createGistWithDescriptionMenuItem = new MenuCommand(CreateGistWithDescriptionCallback, createGistWithDescriptionCommand);
+            mcs.AddCommand(createGistWithDescriptionMenuItem);
         }
         #endregion
 
@@ -81,7 +86,13 @@ namespace EchelonTouchInc.Gister
         /// See the Initialize method to see how the menu item is associated to this function using
         /// the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
-        private void CreateGist(object sender, EventArgs e)
+        private void CreateGistCallback(object sender, EventArgs e)
+        {
+            PostGist();
+
+        }
+
+        private void PostGist(string description="",bool ispublic=true)
         {
             var view = GetActiveTextView();
 
@@ -101,31 +112,49 @@ namespace EchelonTouchInc.Gister
             }
 
             var uploadsGists = new UploadsGists
-                                   {
-                                       GitHubSender = new HttpGitHubSender(),
-                                       CredentialsAreBad = () =>
-                                                               {
-                                                                   NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
-                                                                   new CachesGitHubCredentials().AssureNotCached();
-                                                               },
-                                       Uploaded = url =>
-                                                      {
-                                                          Clipboard.SetText(url);
-                                                          new CachesGitHubCredentials().Cache(credentials);
+            {
+                GitHubSender = new HttpGitHubSender(),
+                CredentialsAreBad = () =>
+                {
+                    NotifyUserThat("Gist not created.  Invalid GitHub Credentials");
+                    new CachesGitHubCredentials().AssureNotCached();
+                },
+                Uploaded = url =>
+                {
+                    Clipboard.SetText(url);
+                    new CachesGitHubCredentials().Cache(credentials);
 
-                                                          NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
-                                                      }
-                                   };
+                    NotifyUserThat("Gist created successfully.  Url placed in the clipboard.");
+                }
+            };
 
             uploadsGists.UseCredentials(credentials);
 
-            uploadsGists.Upload(fileName, content);
-
+            uploadsGists.Upload(fileName, content, description, ispublic);
         }
+
+
+        /// <summary>
+        /// This function is the callback used to execute a command when the a menu item is clicked.
+        /// See the Initialize method to see how the menu item is associated to this function using
+        /// the OleMenuCommandService service and the MenuCommand class.
+        /// </summary>
+        private void CreateGistWithDescriptionCallback(object sender, EventArgs e)
+        {
+
+            Func<IDescriptionPrompt> CreatePrompt = () => new GitHubDescriptionPrompt();
+
+            var prompt = CreatePrompt();
+            prompt.Prompt();
+            var description = prompt.Description;
+            bool isPublic = prompt.GistPrivate == false ? true : false;
+            PostGist(description,isPublic);
+        }
+
 
         private static GitHubCredentials GetGitHubCredentials()
         {
-            var retrievers = new RetrievesCredentials[]
+            var retrievers = new IRetrievesCredentials[]
                                  {
                                      new CachesGitHubCredentials(),
                                      new RetrievesUserEnteredCredentials()

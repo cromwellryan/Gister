@@ -3,7 +3,7 @@ using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
 {
-    public interface RetrievesCredentials
+    public interface IRetrievesCredentials
     {
         bool IsAvailable();
         GitHubCredentials Retrieve();

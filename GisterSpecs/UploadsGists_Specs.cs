@@ -14,7 +14,7 @@ namespace GisterSpecs
             var gitHubSender = new MockGitHubSender();
             var gistApi = new UploadsGists { GitHubSender = gitHubSender };
 
-            gistApi.Upload("file3.cs", "My oh my");
+            gistApi.Upload("file3.cs", "My oh my","description",false);
 
             gitHubSender.SentAGist.Should().Be.True();
         }
@@ -29,7 +29,7 @@ namespace GisterSpecs
             var credentials = new GitHubUserCredentials("something", "secret");
             uploads.UseCredentials(credentials);
 
-            uploads.Upload("file4.cs", "gee wizz");
+            uploads.Upload("file4.cs", "gee wizz","desc",false);
 
             gitHubSender.LastCredentialsApplied.Should().Equal(credentials);
         }
@@ -43,7 +43,7 @@ namespace GisterSpecs
             var gistApi = new UploadsGists { GitHubSender = gitHubSender };
 
             gistApi.Uploaded = url => actualUrl = url;
-            gistApi.Upload("file3.cs", "My oh my");
+            gistApi.Upload("file3.cs", "My oh my","descr",false);
 
             actualUrl.Should().Equal("http://gist.github.com/123");
 
@@ -58,7 +58,7 @@ namespace GisterSpecs
 
             uploads.Uploaded = url => wasSuccessful = true;
 
-            uploads.Upload("asdf", "qwer");
+            uploads.Upload("asdf", "qwer","description",false);
 
             wasSuccessful.Should().Be.True();
         }
@@ -75,7 +75,7 @@ namespace GisterSpecs
             var didTellUs = false;
             uploads.CredentialsAreBad = () => didTellUs = true;
 
-            uploads.Upload("asdf", "asdF");
+            uploads.Upload("asdf", "asdF","desc",false);
 
             didTellUs.Should().Be.True();
         }

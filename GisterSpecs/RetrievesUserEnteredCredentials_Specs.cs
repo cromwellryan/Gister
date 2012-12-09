@@ -51,7 +51,7 @@ namespace GisterSpecs
         }
     }
 
-    public class MockCredentialPrompt : CredentialsPrompt
+    public class MockCredentialPrompt : ICredentialsPrompt
     {
         public bool? Result { get; set; }
 
