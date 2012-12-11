@@ -3,7 +3,7 @@
   <Identifier Id="282f92e9-8465-4d0e-b815-4a87a990219c">
     <Name>Gister</Name>
     <Author>EchelonTouch Inc</Author>
-    <Version>1.3</Version>
+    <Version>1.4</Version>
     <Description xml:space="preserve">Gister lets you create Github Gists within Visual Studio.</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>https://github.com/cromwellryan/Gister</MoreInfoUrl>
