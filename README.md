@@ -1,4 +1,4 @@
-*Gister* is a Visual Studio Extension for creating gists from file or file selection.  
+**Gister** is a Visual Studio Extension for creating gists from file or file selection.  
 
 
 
