@@ -1,4 +1,3 @@
-using EchelonTouchInc.Gister.Api;
 using EchelonTouchInc.Gister.Api.Credentials;
 
 namespace EchelonTouchInc.Gister
